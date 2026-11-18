@@ -1,0 +1,896 @@
+{
+ "pack": "jewelry-v2",
+ "company": {
+  "name": "Sun & Luna",
+  "type": "Fine jewelry brand",
+  "stores": 12,
+  "online": true
+ },
+ "roles": [
+  "ops",
+  "merch",
+  "finance",
+  "hr",
+  "marketing",
+  "cos"
+ ],
+ "role_names": {
+  "ops": "Retail Operations",
+  "merch": "Merchandising",
+  "finance": "Finance",
+  "hr": "HR",
+  "marketing": "Marketing",
+  "cos": "Chief of Staff"
+ },
+ "rounds": [
+  {
+   "id": "r1",
+   "title": "The VIP Preview",
+   "real_seconds": 720,
+   "game_minutes": 240,
+   "clock_start": "10:00",
+   "brief": "Our top client, Mrs. Arora, asks for a private preview of the new Aurora collection this Saturday at 6 p.m. at the flagship store. The public launch is next Thursday. Decide by 2 p.m.",
+   "options": {
+    "A": {
+     "label": "Yes, full preview",
+     "text": "All 40 Aurora pieces, Saturday 6 p.m., her full guest list.",
+     "base": 1
+    },
+    "B": {
+     "label": "Yes, but smaller",
+     "text": "Saturday, 1 hour, the 12 pieces already in our vault, phones checked at the door.",
+     "base": 5,
+     "tag": "Reduce scope"
+    },
+    "C": {
+     "label": "Another date",
+     "text": "Invite her to a private first look on Wednesday, the night before launch.",
+     "base": 4,
+     "tag": "Park"
+    },
+    "D": {
+     "label": "Polite no",
+     "text": "Keep the launch plan. Offer her a seat at the launch.",
+     "base": 2
+    }
+   },
+   "cards": [
+    {
+     "id": "r1-ops-1",
+     "role": "ops",
+     "kind": "note",
+     "cost": 0,
+     "text": "Flagship can host 15 guests max in the private salon.",
+     "tier": "key"
+    },
+    {
+     "id": "r1-ops-2",
+     "role": "ops",
+     "kind": "note",
+     "cost": 0,
+     "text": "Last VIP night ran 30 minutes late. Staff left at 10 p.m.",
+     "tier": "context"
+    },
+    {
+     "id": "r1-ops-3",
+     "role": "ops",
+     "kind": "report",
+     "cost": 15,
+     "text": "Security firm needs 24 hours' notice for extra guards. Cost: $1,500.",
+     "tier": "context",
+     "title": "Security notice"
+    },
+    {
+     "id": "r1-ops-4",
+     "role": "ops",
+     "kind": "report",
+     "cost": 15,
+     "text": "Courier from HQ: the other 28 Aurora pieces arrive Friday 11 p.m. Delays happened twice this year.",
+     "fact": "shipment",
+     "tier": "critical",
+     "title": "Courier schedule"
+    },
+    {
+     "id": "r1-merch-1",
+     "role": "merch",
+     "kind": "note",
+     "cost": 0,
+     "text": "12 Aurora pieces are already in the flagship vault. Value: $1.1M.",
+     "fact": "vault",
+     "tier": "critical"
+    },
+    {
+     "id": "r1-merch-2",
+     "role": "merch",
+     "kind": "note",
+     "cost": 0,
+     "text": "Full Aurora collection: 40 pieces, value $3.4M.",
+     "tier": "context"
+    },
+    {
+     "id": "r1-merch-3",
+     "role": "merch",
+     "kind": "report",
+     "cost": 15,
+     "text": "Mrs. Arora's last 3 purchases were all necklaces.",
+     "tier": "context",
+     "title": "Client purchase history"
+    },
+    {
+     "id": "r1-merch-4",
+     "role": "merch",
+     "kind": "rumor",
+     "cost": 15,
+     "source": "a sales associate heard",
+     "text": "A rival brand is planning a private event for Mrs. Arora next week.",
+     "tier": "rumor",
+     "title": "Market chatter"
+    },
+    {
+     "id": "r1-fin-1",
+     "role": "finance",
+     "kind": "note",
+     "cost": 0,
+     "text": "Mrs. Arora spent $1.2M with us in the last 3 years.",
+     "tier": "context"
+    },
+    {
+     "id": "r1-fin-2",
+     "role": "finance",
+     "kind": "note",
+     "cost": 0,
+     "text": "Event budget left this quarter: $8,000.",
+     "tier": "context"
+    },
+    {
+     "id": "r1-fin-3",
+     "role": "finance",
+     "kind": "report",
+     "cost": 15,
+     "text": "Insurance covers up to $2M of pieces out of the vault at one time.",
+     "fact": "insurance",
+     "tier": "critical",
+     "title": "Insurance limits"
+    },
+    {
+     "id": "r1-fin-4",
+     "role": "finance",
+     "kind": "report",
+     "cost": 15,
+     "text": "Raising insurance cover takes 48 hours and costs $9,000.",
+     "tier": "context",
+     "title": "Extra insurance"
+    },
+    {
+     "id": "r1-hr-1",
+     "role": "hr",
+     "kind": "note",
+     "cost": 0,
+     "text": "Saturday: 2 of 6 senior advisors are on approved leave.",
+     "tier": "context"
+    },
+    {
+     "id": "r1-hr-2",
+     "role": "hr",
+     "kind": "note",
+     "cost": 0,
+     "text": "Overtime cap: max 3 senior advisors can work Saturday night.",
+     "tier": "key"
+    },
+    {
+     "id": "r1-hr-3",
+     "role": "hr",
+     "kind": "report",
+     "cost": 15,
+     "text": "Rule of thumb: 1 senior advisor per 4 VIP guests.",
+     "tier": "context",
+     "title": "Staffing ratio"
+    },
+    {
+     "id": "r1-hr-4",
+     "role": "hr",
+     "kind": "rumor",
+     "cost": 15,
+     "source": "staff chat",
+     "text": "Staff say last-minute VIP nights hurt morale.",
+     "tier": "rumor",
+     "title": "Staff mood"
+    },
+    {
+     "id": "r1-mkt-1",
+     "role": "marketing",
+     "kind": "note",
+     "cost": 0,
+     "text": "Press embargo: no Aurora photos in public before next Thursday.",
+     "tier": "key"
+    },
+    {
+     "id": "r1-mkt-2",
+     "role": "marketing",
+     "kind": "note",
+     "cost": 0,
+     "text": "Launch event next Thursday: 80 guests and press.",
+     "tier": "context"
+    },
+    {
+     "id": "r1-mkt-3",
+     "role": "marketing",
+     "kind": "report",
+     "cost": 15,
+     "text": "Our partner magazine has the exclusive first story on Aurora.",
+     "tier": "context",
+     "title": "Media deal"
+    },
+    {
+     "id": "r1-mkt-4",
+     "role": "marketing",
+     "kind": "rumor",
+     "cost": 15,
+     "source": "an influencer's post",
+     "text": "Mrs. Arora's friends love posting private events online.",
+     "tier": "rumor",
+     "title": "Social media check"
+    }
+   ],
+   "stakeholders": [
+    {
+     "id": "assistant",
+     "name": "Mrs. Arora's assistant",
+     "cost": 15,
+     "key": true,
+     "fact": "need",
+     "text": "She wants to choose a necklace for her daughter's wedding next month, before anyone else sees the collection."
+    },
+    {
+     "id": "store_mgr",
+     "name": "Flagship store manager (12 years)",
+     "cost": 15,
+     "key": true,
+     "text": "Small previews work. Big ones leak photos. 12 pieces is plenty for a buyer like her."
+    },
+    {
+     "id": "regional",
+     "name": "Regional Director",
+     "cost": 15,
+     "key": false,
+     "text": "She is a friend of our CEO. Keep her happy, but do not break the launch."
+    },
+    {
+     "id": "broker",
+     "name": "Insurance broker",
+     "cost": 15,
+     "key": false,
+     "text": "Your cap is $2M out of the vault. More cover needs 48 hours."
+    },
+    {
+     "id": "pr",
+     "name": "PR agency",
+     "cost": 15,
+     "key": false,
+     "text": "Any leaked photo breaks our magazine deal."
+    }
+   ],
+   "breaking_news": [
+    {
+     "at_real_seconds": 240,
+     "text": "Courier: the HQ shipment is delayed to Sunday.",
+     "kills": [
+      "A"
+     ]
+    }
+   ],
+   "measures": {
+    "right": [
+     "Mrs. Arora's purchase and feedback",
+     "No photos online before launch"
+    ],
+    "wrong": [
+     "Instagram likes this week",
+     "Store footfall on Saturday"
+    ]
+   },
+   "outcomes": {
+    "A": [
+     [
+      0.3,
+      "good",
+      "Somehow it worked. Nothing leaked. Pure luck."
+     ],
+     [
+      0.7,
+      "bad",
+      "Pieces did not arrive, insurance gap, a photo leaked."
+     ]
+    ],
+    "B": [
+     [
+      0.85,
+      "good",
+      "She bought a $180k necklace and asked to be first at launch."
+     ],
+     [
+      0.15,
+      "bad",
+      "A guest posted a blurry photo. PR had to step in."
+     ]
+    ],
+    "C": [
+     [
+      0.75,
+      "good",
+      "She loved the Wednesday first look and bought two pieces."
+     ],
+     [
+      0.25,
+      "bad",
+      "She felt brushed off and bought from a rival."
+     ]
+    ],
+    "D": [
+     [
+      0.4,
+      "good",
+      "She came to the launch and was happy."
+     ],
+     [
+      0.6,
+      "bad",
+      "She told the CEO she felt ignored."
+     ]
+    ]
+   }
+  },
+  {
+   "id": "r2",
+   "title": "The Late Shipment",
+   "real_seconds": 900,
+   "game_minutes": 180,
+   "clock_start": "09:00",
+   "brief": "Only 600 of 1,000 units of the holiday line arrive on time. Decide how to allocate them to 12 stores and online by 12 noon.",
+   "options": {
+    "A": {
+     "label": "Equal split",
+     "text": "Same number to every store and online.",
+     "base": 2
+    },
+    "B": {
+     "label": "Follow the sales",
+     "text": "80% to the top 5 stores and online, by last year's holiday sales.",
+     "base": 5,
+     "tag": "Approximate"
+    },
+    "C": {
+     "label": "Protect VIPs first",
+     "text": "Hold 150 units for VIP pre-orders at the flagship, the rest by last year's sales.",
+     "base": 4,
+     "tag": "Pick"
+    },
+    "D": {
+     "label": "Delay the launch",
+     "text": "Wait 2 weeks for the full 1,000 units.",
+     "base": 1
+    }
+   },
+   "trap": {
+    "at_real_seconds": 300,
+    "text": "Supplier Velta Gems: we can deliver the missing 400 units in 5 days if you sign a 3-year exclusive contract for all Classic lines. Value: $6.5M. Answer in 2 hours.",
+    "label": "NO WAY BACK",
+    "choices": {
+     "sign": {
+      "q": 1,
+      "t": 1
+     },
+     "decline": {
+      "t_delta": -1
+     },
+     "escalate": {},
+     "ask_time": {}
+    },
+    "authority_card": "Contracts over $1M need the CEO and Legal."
+   },
+   "critical_facts": [
+    "velocity",
+    "campaign"
+   ],
+   "stakeholder_keys": [
+    "regional",
+    "store_ops"
+   ],
+   "cards": [
+    {
+     "id": "r2-ops-1",
+     "role": "ops",
+     "kind": "note",
+     "cost": 0,
+     "text": "Moving stock between stores later costs $25 per unit and takes 3 days.",
+     "tier": "key"
+    },
+    {
+     "id": "r2-ops-2",
+     "role": "ops",
+     "kind": "note",
+     "cost": 0,
+     "text": "Online orders ship from the central warehouse in 1 day.",
+     "tier": "context"
+    },
+    {
+     "id": "r2-ops-3",
+     "role": "ops",
+     "kind": "report",
+     "cost": 15,
+     "text": "Holiday temp staff are hired for the top 5 stores only.",
+     "tier": "context",
+     "title": "Temp staff plan"
+    },
+    {
+     "id": "r2-ops-4",
+     "role": "ops",
+     "kind": "rumor",
+     "cost": 15,
+     "text": "The Riverside Mall store expects a big corporate order.",
+     "source": "store chat",
+     "tier": "rumor",
+     "title": "Store chatter"
+    },
+    {
+     "id": "r2-merch-1",
+     "role": "merch",
+     "kind": "note",
+     "cost": 0,
+     "text": "600 units arrive today. The other 400 arrive in 4 weeks, after the holidays.",
+     "tier": "context"
+    },
+    {
+     "id": "r2-merch-2",
+     "role": "merch",
+     "kind": "report",
+     "cost": 15,
+     "text": "Last holiday, the top 5 stores and online sold 72% of this line. 4 small stores sold under 20 units each.",
+     "fact": "velocity",
+     "tier": "critical",
+     "title": "Last holiday sales"
+    },
+    {
+     "id": "r2-merch-3",
+     "role": "merch",
+     "kind": "report",
+     "cost": 15,
+     "text": "Unsold holiday stock after Dec 31 goes to 30% off.",
+     "tier": "context",
+     "title": "Markdown rule"
+    },
+    {
+     "id": "r2-merch-4",
+     "role": "merch",
+     "kind": "note",
+     "cost": 0,
+     "text": "Flagship VIP waitlist: 40 pre-orders from the Aurora preview.",
+     "fact": "waitlist",
+     "only_if": "r1_choice_in_BC",
+     "tier": "key"
+    },
+    {
+     "id": "r2-fin-1",
+     "role": "finance",
+     "kind": "note",
+     "cost": 0,
+     "text": "Average price: $850 per unit. Margin: 62%.",
+     "tier": "context"
+    },
+    {
+     "id": "r2-fin-2",
+     "role": "finance",
+     "kind": "note",
+     "cost": 0,
+     "text": "Contract approval: Regional Director up to $500k. Over $1M: CEO and Legal.",
+     "fact": "authority",
+     "tier": "critical"
+    },
+    {
+     "id": "r2-fin-3",
+     "role": "finance",
+     "kind": "report",
+     "cost": 15,
+     "text": "Every week of delay in the holiday season loses about $140k in sales.",
+     "tier": "context",
+     "title": "Cost of delay"
+    },
+    {
+     "id": "r2-fin-4",
+     "role": "finance",
+     "kind": "rumor",
+     "cost": 15,
+     "text": "Velta Gems may have money problems next year.",
+     "source": "hallway talk",
+     "tier": "rumor",
+     "title": "Supplier gossip"
+    },
+    {
+     "id": "r2-hr-1",
+     "role": "hr",
+     "kind": "note",
+     "cost": 0,
+     "text": "Store teams are tired after the Aurora launch.",
+     "tier": "context"
+    },
+    {
+     "id": "r2-hr-2",
+     "role": "hr",
+     "kind": "note",
+     "cost": 0,
+     "text": "Temp staff contracts start in 10 days.",
+     "tier": "context"
+    },
+    {
+     "id": "r2-hr-3",
+     "role": "hr",
+     "kind": "report",
+     "cost": 15,
+     "text": "Small stores can share 1 advisor between them in December.",
+     "tier": "key",
+     "title": "Advisor sharing"
+    },
+    {
+     "id": "r2-hr-4",
+     "role": "hr",
+     "kind": "rumor",
+     "cost": 15,
+     "text": "Small-store teams will be upset if they get less stock.",
+     "source": "staff chat",
+     "tier": "rumor",
+     "title": "Team mood"
+    },
+    {
+     "id": "r2-mkt-1",
+     "role": "marketing",
+     "kind": "note",
+     "cost": 0,
+     "text": "The holiday campaign is paid and starts in 10 days. Dates cannot move.",
+     "fact": "campaign",
+     "tier": "critical"
+    },
+    {
+     "id": "r2-mkt-2",
+     "role": "marketing",
+     "kind": "note",
+     "cost": 0,
+     "text": "The campaign sends customers to online and the top 5 stores.",
+     "tier": "context"
+    },
+    {
+     "id": "r2-mkt-3",
+     "role": "marketing",
+     "kind": "report",
+     "cost": 15,
+     "text": "Last year, out-of-stock online cost us 2,000 visitors a day.",
+     "tier": "context",
+     "title": "Online stock-outs"
+    },
+    {
+     "id": "r2-mkt-4",
+     "role": "marketing",
+     "kind": "rumor",
+     "cost": 15,
+     "text": "An influencer says an equal split looks fairer to customers.",
+     "source": "social media",
+     "tier": "rumor",
+     "title": "Influencer view"
+    },
+    {
+     "id": "r2-merch-5",
+     "role": "merch",
+     "kind": "note",
+     "cost": 0,
+     "tier": "key",
+     "only_if": "r1_choice_A",
+     "text": "After Saturday, Mrs. Arora told two friends the preview felt chaotic."
+    }
+   ],
+   "stakeholders": [
+    {
+     "id": "regional",
+     "name": "Regional Director",
+     "cost": 15,
+     "key": true,
+     "text": "I can approve the allocation. A supplier contract that size is not mine. Take it to the CEO."
+    },
+    {
+     "id": "store_ops",
+     "name": "Store operations lead",
+     "cost": 15,
+     "key": true,
+     "text": "Small stores barely sell this line in December."
+    },
+    {
+     "id": "legal",
+     "name": "Legal",
+     "cost": 15,
+     "key": false,
+     "text": "Never sign an exclusive deal in 2 hours."
+    },
+    {
+     "id": "supplier",
+     "name": "Velta Gems sales rep",
+     "cost": 15,
+     "key": false,
+     "text": "Other brands want this slot. Decide fast."
+    },
+    {
+     "id": "top_store",
+     "name": "Top store manager",
+     "cost": 15,
+     "key": false,
+     "text": "Give my store more. We always sell out."
+    }
+   ],
+   "measures": {
+    "right": [
+     "Sell-through by Dec 31",
+     "Online out-of-stock days"
+    ],
+    "wrong": [
+     "Number of stores that got stock",
+     "Social media comments"
+    ]
+   },
+   "outcomes": {
+    "A": [
+     [
+      0.3,
+      "good",
+      "Sales were fine, but small stores kept stock into January."
+     ],
+     [
+      0.7,
+      "bad",
+      "Top stores sold out in a week. Small stores sat on stock."
+     ]
+    ],
+    "B": [
+     [
+      0.8,
+      "good",
+      "Best holiday sell-through in 3 years."
+     ],
+     [
+      0.2,
+      "bad",
+      "A mall flood closed one top store for a week."
+     ]
+    ],
+    "C": [
+     [
+      0.8,
+      "good",
+      "VIPs got their pieces. Sales were strong."
+     ],
+     [
+      0.2,
+      "bad",
+      "Some VIPs cancelled. 30 units waited at the flagship."
+     ]
+    ],
+    "D": [
+     [
+      0.1,
+      "good",
+      "The full line launched late but sold well."
+     ],
+     [
+      0.9,
+      "bad",
+      "The paid campaign ran with empty shelves."
+     ]
+    ]
+   },
+   "carry": {
+    "rule": "by R1 choice, never by luck",
+    "B": "waitlist",
+    "C": "waitlist",
+    "A": "client_trust_damaged",
+    "D": "none",
+    "base_if_waitlist": {
+     "C": 5,
+     "B": 4
+    },
+    "base_otherwise": {
+     "B": 5,
+     "C": 3
+    }
+   },
+   "small_call": {
+    "at_real_seconds": 480,
+    "from": "Store operations lead",
+    "text": "Can two small stores share one advisor in December? I need a yes or no today.",
+    "within_authority": true,
+    "choices": {
+     "approve": {
+      "note": "right: your call"
+     },
+     "decline": {
+      "note": "fine"
+     },
+     "escalate": {
+      "cost": 15,
+      "t_delta": -1,
+      "reply": "Regional Director: That's your call. You don't need me for this."
+     }
+    }
+   }
+  }
+ ],
+ "scoring": {
+  "speed_bands_pct_left": [
+   [
+    50,
+    5
+   ],
+   [
+    35,
+    4
+   ],
+   [
+    20,
+    3
+   ],
+   [
+    5,
+    2
+   ],
+   [
+    0,
+    1
+   ]
+  ],
+  "quality": {
+   "evidence_critical": 0,
+   "evidence_none_critical": -1,
+   "evidence_rumor": -1,
+   "measure_wrong": -1
+  },
+  "trust": {
+   "start": 3,
+   "pins_4_roles": 1,
+   "key_call": 1,
+   "per_call_over_2": -1,
+   "lone_stamp_under_2_pins": -1
+  },
+  "report_cost_default": 15,
+  "missed_deadline": {
+   "rule": "river_decides",
+   "option": "D",
+   "S": 1,
+   "Q": 2,
+   "T": 2
+  },
+  "quality_v2": {
+   "base": "option base value (0 to 5)",
+   "evidence": "-1 if no critical or key card matches the chosen option",
+   "rumor": "-1 only if a rumor is the only evidence",
+   "measure": "-1 if the measure does not fit",
+   "defended": "+1 by host when the rationale makes a fair case (max 5)",
+   "cap": [
+    1,
+    5
+   ]
+  },
+  "trust_v2": {
+   "start": 3,
+   "pins_from_4_roles": 1,
+   "key_call": 1,
+   "per_call_over_2": -1,
+   "lone_stamp_under_2_pins": -1,
+   "small_call_escalated": -1,
+   "call_fatigue": "calls 3 and up get shorter, irritated replies"
+  },
+  "speed_note": "only the main stamp sets Speed. The trap and the small call do not change Speed, only the time they cost.",
+  "announce_upfront": [
+   "Evidence matters",
+   "Ask the right people, not everyone",
+   "Every report and call costs time",
+   "Luck never changes your score"
+  ]
+ },
+ "table_layouts": {
+  "3": [
+   [
+    "ops",
+    "hr"
+   ],
+   [
+    "merch",
+    "marketing"
+   ],
+   [
+    "finance",
+    "cos"
+   ]
+  ],
+  "4": [
+   [
+    "ops",
+    "hr"
+   ],
+   [
+    "merch"
+   ],
+   [
+    "finance"
+   ],
+   [
+    "marketing"
+   ]
+  ],
+  "5": [
+   [
+    "ops"
+   ],
+   [
+    "merch"
+   ],
+   [
+    "finance"
+   ],
+   [
+    "hr"
+   ],
+   [
+    "marketing"
+   ]
+  ],
+  "6": [
+   [
+    "ops"
+   ],
+   [
+    "merch"
+   ],
+   [
+    "finance"
+   ],
+   [
+    "hr"
+   ],
+   [
+    "marketing"
+   ],
+   [
+    "cos"
+   ]
+  ]
+ },
+ "table_rules": {
+  "tables_min": 3,
+  "tables_max": 8,
+  "players_per_table": [
+   3,
+   6
+  ],
+  "leader": "cos if present, else rotates each round",
+  "note": "cos holds no data: owns the stamp, the clock view and the rationale draft"
+ },
+ "players": {
+  "store": "nickname only, deleted after the session",
+  "no": [
+   "email",
+   "phone number",
+   "company id"
+  ]
+ },
+ "audio": {
+  "stage_only": [
+   "host voice",
+   "news anchor",
+   "ambience",
+   "music",
+   "sfx"
+  ],
+  "phone_only": [
+   "stakeholder calls (phone filter, low volume, text always shown)"
+  ],
+  "host_controls": [
+   "mute ambience",
+   "mute all call audio"
+  ]
+ }
+}
