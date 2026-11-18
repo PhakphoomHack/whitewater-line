@@ -6,7 +6,7 @@ import {
   type GameState, round, realElapsed, deadlineSec, tablesInUse, members, team, isOnline, gameClockLabel, teamLeft, budget,
   killedOptions, roundResults, grandTotals, magnets, rationale, deadlineLabel,
 } from '../../src/game/engine';
-import { PACK, RULE_SLIDES, MARKET_SLIDE, type OptionKey } from '../../src/game/pack';
+import { PACK, RULE_SLIDES, MARKET_SLIDE, COPY, type OptionKey } from '../../src/game/pack';
 import { AudioDirector } from '../../src/ui/audio';
 import { Subtitle } from '../../src/ui/Subtitle';
 import { tableName, tableColor, makeRoomCode, makePin } from '../../src/ui/common';
@@ -36,7 +36,7 @@ function Setup() {
       <img className="bg" src="/img/stage_river.webp" alt="" />
       <div className="veil" style={{ background: 'rgba(5,11,28,0.7)' }} />
       <div className="content" style={{ alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
-        <span className="kicker">WHITEWATER DESK · BIG SCREEN</span>
+        <span className="kicker">{COPY.gameName.toUpperCase()} · BIG SCREEN</span>
         <h1>Start a new game room</h1>
         <p className="muted" style={{ fontSize: 18, maxWidth: 640 }}>Run this on the laptop connected to the projector. Keep this tab open for the whole game: it is the game&apos;s brain.</p>
         <button className="btn-gold" onClick={create} style={{ fontSize: 20, minHeight: 58, padding: '0 34px' }}>Create room</button>
@@ -87,7 +87,8 @@ function Stage({ room }: { room: string }) {
     audio.muteVoice = state.settings.muteVoice;
     for (const c of fresh) {
       if (c.sfx) audio.sfx(c.sfx);
-      if (c.voice) { audio.say(c.voice); if (c.voice === 'host_reveal') audio.say('host_champion'); }
+      if (c.voice === 'host_end') audio.sayList(['host_end']);
+      else if (c.voice) { audio.say(c.voice); if (c.voice === 'host_reveal') audio.say('host_champion'); }
       const r = round(state);
       if (c.sfx === 'news' && c.voice !== 'market_open') { // the market has its own banner, not a news flash
         const isTrap = c.voice === 'news_r2';
@@ -130,7 +131,7 @@ function Stage({ room }: { room: string }) {
       {s.phase === 'review' && <Review s={s} />}
       {s.phase === 'reveal' && <Reveal s={s} />}
       {s.phase === 'final' && <Final s={s} />}
-      {overlay?.kind === 'news' && (
+      {overlay?.kind === 'news' && !s.market?.open && (
         <div className="overlay" style={{ background: 'rgba(30,4,10,0.82)' }}>
           <div style={{ maxWidth: '72vw', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3vh', textAlign: 'center' }}>
             <span className="breaking" style={{ fontSize: 'clamp(40px, 5vw, 96px)' }}>{overlay.title.toUpperCase()}</span>
@@ -176,7 +177,7 @@ function Lobby({ s, now, pin, showPin, setShowPin }: { s: GameState; now: number
   return (
     <div className="content" style={{ flexDirection: 'row', gap: '4vw' }}>
       <div style={{ width: '28vw', flexShrink: 0, display: 'flex', flexDirection: 'column', gap: '2.2vh' }}>
-        <span className="kicker">WHITEWATER DESK</span>
+        <span className="kicker">{COPY.gameName.toUpperCase()}</span>
         <h1>Grab your phone. Take your seat.</h1>
         <div style={{ width: '19vw', aspectRatio: '1', padding: '1.1vw', borderRadius: 20, background: 'linear-gradient(160deg,#FFE3A0,#B07D24)', boxShadow: '0 0 40px rgba(242,198,109,0.35)' }}>
           {qr && <img src={qr} alt="QR code to join" style={{ width: '100%', height: '100%', borderRadius: 10, display: 'block' }} />}
@@ -364,7 +365,7 @@ function Final({ s }: { s: GameState }) {
   return (
     <div className="content" style={{ alignItems: 'center' }}>
       <span className="kicker">FINAL RESULTS · BOTH ROUNDS</span>
-      <h1>The river&apos;s best desks</h1>
+      <h1>The river&apos;s best tables</h1>
       <div style={{ display: 'flex', alignItems: 'flex-end', gap: '2vw', marginTop: '3vh' }}>
         {[1, 0, 2].map((i) => g[i] && (
           <div key={g[i].table} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
@@ -386,7 +387,7 @@ function Final({ s }: { s: GameState }) {
 function RuleSlide({ slide, index }: { slide: { big: string; small: string; pebble: string }; index: number | null }) {
   return (
     <div className="content" style={{ justifyContent: 'center', paddingLeft: '7vw' }}>
-      {index === 0 && <img src="/img/sunluna_logo.webp" alt="Sun & Luna, fine jewelry" style={{ height: '24vh', alignSelf: 'flex-start', animation: 'pop 600ms ease-out', marginBottom: '1vh' }} />}
+      {index === 0 && <img src="/img/sunluna_logo.webp" alt="Sun & Luna Manufacturing" style={{ height: '24vh', alignSelf: 'flex-start', animation: 'pop 600ms ease-out', marginBottom: '1vh' }} />}
       <span className="kicker">{index === null ? 'NEW IN ROUND 2' : `HOW TO PLAY · ${index + 1} OF ${RULE_SLIDES.length}`}</span>
       <h1 key={slide.big} style={{ fontSize: 'clamp(40px, 5vw, 96px)', maxWidth: '62vw', animation: 'pop 420ms ease-out' }}>{slide.big}</h1>
       <p key={slide.small} style={{ margin: 0, fontSize: 'clamp(20px, 2vw, 38px)', color: 'var(--soft)', maxWidth: '58vw', lineHeight: 1.4, animation: 'fadeIn 500ms ease-out' }}>{slide.small}</p>

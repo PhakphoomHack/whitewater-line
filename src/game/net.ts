@@ -41,7 +41,7 @@ class SupabaseTransport implements Transport {
     });
   }
   private join(dir: 'up' | 'down', listen: boolean) {
-    const ch = this.sb.channel(`wwd-${this.room}-${dir}`, { config: { broadcast: { self: false, ack: false } } });
+    const ch = this.sb.channel(`wwl-${this.room}-${dir}`, { config: { broadcast: { self: false, ack: false } } });
     this.chans[dir] = ch;
     if (listen) ch.on('broadcast', { event: 'm' }, (p: any) => (dir === 'up' ? this.upCbs : this.downCbs).forEach((cb: any) => cb(p.payload)));
     ch.subscribe((status: string) => {

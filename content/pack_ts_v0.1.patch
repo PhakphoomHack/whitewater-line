@@ -1,0 +1,52 @@
+diff --git a/src/game/pack.ts b/src/game/pack.ts
+index 78f5ef1..ea7a689 100644
+--- a/src/game/pack.ts
++++ b/src/game/pack.ts
+@@ -35,16 +35,16 @@ export const ROLE_COLORS: Record<RoleId, string> = {
+ // Calls are written as "call:<stakeholder id>".
+ export const SUPPORTS: Record<string, Record<OptionKey, string[]>> = {
+   r1: {
+-    A: ['r1-merch-4'],
+-    B: ['r1-merch-1', 'r1-fin-3', 'r1-ops-4', 'r1-hr-2', 'r1-ops-1', 'r1-mkt-1', 'r1-merch-4', 'call:assistant', 'call:store_mgr', 'call:broker'],
+-    C: ['r1-fin-3', 'r1-ops-4', 'r1-mkt-1', 'r1-hr-2', 'r1-hr-4', 'r1-mkt-4', 'r1-merch-4', 'call:assistant', 'call:pr', 'call:broker'],
+-    D: ['r1-mkt-1', 'r1-ops-4', 'r1-hr-4', 'r1-mkt-4', 'call:pr'],
++    A: ['r1-merch-4', 'r1-hr-4', 'r1-mkt-4'],
++    B: ['r1-merch-1', 'r1-fin-3', 'r1-ops-4', 'r1-hr-2', 'r1-mkt-1', 'r1-mkt-2', 'r1-ops-1', 'r1-fin-4', 'r1-merch-3', 'call:buyer', 'call:planner', 'call:maint', 'call:freight'],
++    C: ['r1-ops-4', 'r1-hr-2', 'r1-hr-3', 'r1-ops-1', 'r1-mkt-3', 'r1-merch-4', 'call:maint', 'call:planner'],
++    D: ['r1-hr-2', 'r1-hr-3', 'r1-mkt-3', 'call:qc'],
+   },
+   r2: {
+-    A: ['r2-hr-4', 'r2-mkt-4', 'x2-ceo'],
+-    B: ['r2-merch-2', 'r2-mkt-1', 'r2-mkt-2', 'r2-ops-1', 'r2-ops-3', 'r2-mkt-3', 'r2-hr-3', 'call:store_ops', 'call:regional', 'x2-overnight', 'x2-renovation', 'x2-discount'],
+-    C: ['r2-merch-4', 'r2-merch-2', 'r2-mkt-1', 'r2-ops-1', 'call:store_ops', 'call:regional', 'x2-deposit', 'x2-overnight'],
+-    D: ['x2-early'],
++    A: ['r2-hr-4', 'r2-mkt-4', 'x2-plantdir'],
++    B: ['r2-merch-2', 'r2-fin-3', 'r2-merch-3', 'r2-ops-1', 'r2-ops-3', 'r2-hr-3', 'call:prod_head', 'call:plant_dir', 'x2-nord', 'x2-remelt'],
++    C: ['r2-merch-4', 'r2-merch-2', 'r2-fin-3', 'r2-ops-1', 'call:prod_head', 'call:plant_dir', 'call:account', 'x2-deposit', 'x2-remelt'],
++    D: ['x2-early', 'x2-price'],
+   },
+ };
+ 
+@@ -113,14 +113,14 @@ const X = (id: string, kind: 'note' | 'buzz', title: string, text: string, tier:
+   ({ id, role: 'cos', kind, cost: 0, title, text, tier, exclusive: true, source: kind === 'buzz' ? 'word going around, not confirmed' : undefined });
+ export const EXCLUSIVES: Record<string, Card[]> = {
+   r2: [
+-    X('x2-overnight', 'note', 'Warehouse capacity', 'The central warehouse can restock any top-5 store overnight.', 'key'),
+-    X('x2-ceo', 'buzz', 'CEO wish', 'Word is the CEO wants every store to get some stock this year.', 'rumor'),
+-    X('x2-deposit', 'note', 'VIP deposits', 'The flagship VIP pre-orders already have a 20% deposit paid.', 'key'),
+-    X('x2-discount', 'buzz', 'Competitor move', 'Word is a competitor will cut prices on a similar line in two weeks.', 'rumor'),
+-    X('x2-renovation', 'note', 'Store closures', 'Two small stores close for renovation from December 15.', 'key'),
+-    X('x2-early', 'buzz', 'Early delivery?', 'Word is the missing 400 units might arrive one week early.', 'rumor'),
+-    X('x2-penalty', 'note', 'Contract fine print', 'Velta Gems contracts carry a $1M penalty if we leave early.', 'context'),
+-    X('x2-mobile', 'note', 'Online pattern', 'Last campaign: 60% of online orders came from phones, mostly at night.', 'context'),
++    X('x2-remelt', 'note', 'Clean scrap', '40 kg of clean scrap from last month can be remelted and used this week.', 'key'),
++    X('x2-plantdir', 'buzz', 'Plant Director wish', 'Word is the Plant Director wants every customer to get something.', 'rumor'),
++    X('x2-deposit', 'note', 'Aurelle deposit', "Aurelle's reorder already has a 30% deposit paid.", 'key'),
++    X('x2-price', 'buzz', 'Brass prices', 'Word is brass prices will drop next month.', 'rumor'),
++    X('x2-nord', 'note', 'Nord request', 'Nord asked last week if they could take their order 2 weeks later.', 'key'),
++    X('x2-early', 'buzz', 'Early delivery?', 'Word is the missing 400 kg might arrive one week early.', 'rumor'),
++    X('x2-penalty', 'note', 'Contract fine print', 'Kestrel contracts carry a $1M penalty if we leave early.', 'context'),
++    X('x2-audit', 'note', 'Customer audit', 'A customer audit on material tracing is planned for next month.', 'context'),
+   ],
+ };
+ 

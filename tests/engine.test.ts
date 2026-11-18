@@ -29,16 +29,16 @@ refused(s, { t: 'pin', playerId: fin.id, ref: 'r1-fin-4' }, T0, 'pin sealed repo
 s = apply(s, { t: 'pin', playerId: fin.id, ref: 'r1-fin-3' }, T0 + 1000);
 ok(team(s, 1).pins.length === 1, 'pinned');
 // calls
-s = apply(s, { t: 'call', playerId: 'b', stakeholder: 'assistant' }, T0 + 2000);
-refused(s, { t: 'call', playerId: 'c', stakeholder: 'assistant' }, T0, 'duplicate call');
-s = apply(s, { t: 'call', playerId: 'b', stakeholder: 'pr' }, T0 + 2000);
-s = apply(s, { t: 'call', playerId: 'b', stakeholder: 'regional' }, T0 + 2000);
+s = apply(s, { t: 'call', playerId: 'b', stakeholder: 'buyer' }, T0 + 2000);
+refused(s, { t: 'call', playerId: 'c', stakeholder: 'buyer' }, T0, 'duplicate call');
+s = apply(s, { t: 'call', playerId: 'b', stakeholder: 'qc' }, T0 + 2000);
+s = apply(s, { t: 'call', playerId: 'b', stakeholder: 'freight' }, T0 + 2000);
 ok(team(s, 1).calls[2].irritated && !team(s, 1).calls[1].irritated, '3rd call irritated');
 ok(team(s, 1).costs === 60, 'calls cost 15 each');
 // pause stops the clock
 host({ c: 'pause' }, T0 + 10_000);
 ok(Math.round(realElapsed(s, T0 + 50_000)) === 10, 'paused clock frozen');
-refused(s, { t: 'call', playerId: 'b', stakeholder: 'broker' }, T0 + 20_000, 'act while paused');
+refused(s, { t: 'call', playerId: 'b', stakeholder: 'maint' }, T0 + 20_000, 'act while paused');
 host({ c: 'resume' }, T0 + 50_000);
 ok(Math.round(realElapsed(s, T0 + 60_000)) === 20, 'resume subtracts pause');
 // breaking news at 240s kills A
@@ -48,8 +48,8 @@ ok(s.fired.some((f) => f.startsWith('news:')), 'news fired');
 ok(team(s, 1).draft.option === null, 'killed option cleared from draft');
 refused(s, { t: 'draft', playerId: 'c', option: 'A' }, T0 + 290_000, 'draft killed option');
 // seal: non-leader refused while leader online
-s = apply(s, { t: 'pin', playerId: 'b', ref: 'call:assistant' }, T0 + 290_000);
-s = apply(s, { t: 'draft', playerId: 'c', option: 'B', evidence: ['r1-fin-3', 'call:assistant'], measure: "Mrs. Arora's purchase and feedback" }, T0 + 290_000);
+s = apply(s, { t: 'pin', playerId: 'b', ref: 'call:buyer' }, T0 + 290_000);
+s = apply(s, { t: 'draft', playerId: 'c', option: 'B', evidence: ['r1-fin-3', 'call:buyer'], measure: "Aurelle's stock at launch and their feedback" }, T0 + 290_000);
 s = apply(s, { t: 'heartbeat', playerId: 'a' }, T0 + 290_000);
 refused(s, { t: 'seal', playerId: 'c' }, T0 + 291_000, 'non-leader seal');
 ok(canSeal(s, 1, 'c', T0 + 290_000 + 35_000), 'non-leader may seal when leader offline');
@@ -75,16 +75,24 @@ const merch1 = Object.values(s.players).find((p) => p.table === 1 && p.roles.inc
 ok(playerCards(s, merch1.id).some((c) => c.id === 'r2-merch-4'), 'waitlist card shown after B');
 ok(team(s, 1).leader === 'b', 'leader rotates in round 2');
 // trap
-s = tick(s, T0 + 1_000_000 + 301_000);
+s = tick(s, T0 + 1_000_000 + 151_000);
 ok(team(s, 1).trap?.state === 'pending', 'trap pending');
 s = apply(s, { t: 'trap', playerId: 'c', choice: 'sign' }, T0 + 1_302_000);
 s = tick(s, T0 + 1_000_000 + 481_000);
 ok(team(s, 2).small?.state === 'pending', 'small call pending');
 s = apply(s, { t: 'small', playerId: 'e', choice: 'escalate' }, T0 + 1_482_000);
 ok(team(s, 2).costs === 15, 'escalate small call costs 15');
-s = apply(s, { t: 'draft', playerId: 'b', option: 'B', measure: 'Sell-through by Dec 31' }, T0 + 1_483_000);
+s = apply(s, { t: 'draft', playerId: 'b', option: 'B', measure: 'Big orders shipped on time, with certificates' }, T0 + 1_483_000);
 s = apply(s, { t: 'seal', playerId: 'b' }, T0 + 1_483_000);
 ok(team(s, 1).score!.Q === 1 && team(s, 1).score!.T === 1, 'signing the trap drops Q and T to 1');
+// trap before seal: table 2 tries to seal, offer is already pending -> refused until answered
+s = apply(s, { t: 'draft', playerId: 'e', option: 'B', evidence: ['r2-fin-3'], measure: 'Big orders shipped on time, with certificates' }, T0 + 1_484_000);
+const L2 = team(s, 2).leader!;
+refused(s, { t: 'seal', playerId: L2 }, T0 + 1_484_000, 'seal while the offer is pending');
+s = apply(s, { t: 'trap', playerId: 'e', choice: 'escalate' }, T0 + 1_485_000);
+s = apply(s, { t: 'seal', playerId: L2 }, T0 + 1_486_000);
+ok(!!team(s, 2).sealed, 'seal works after the offer is answered');
+ok(team(s, 2).score!.notes.some((n) => n.includes('Regional VP')), 'factory trap note');
 // add minute moves the deadline
 host({ c: 'add_minute' }, T0 + 1_500_000);
 s = tick(s, T0 + 1_000_000 + 905_000);

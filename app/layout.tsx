@@ -1,7 +1,7 @@
 import './globals.css';
 import type { Metadata, Viewport } from 'next';
 
-export const metadata: Metadata = { title: 'Whitewater Desk', description: 'A decision game on the river' };
+export const metadata: Metadata = { title: 'Whitewater Line', description: 'A decision game on the river' };
 export const viewport: Viewport = { width: 'device-width', initialScale: 1, themeColor: '#050B1C' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

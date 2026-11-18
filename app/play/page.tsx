@@ -6,7 +6,7 @@ import {
   round, team, members, playerCards, refLabel, realElapsed, tablesInUse, findCard, killedOptions, gameClockLabel, teamLeft, budget, canSeal, rationale,
   finalScore, roundResults, grandTotals, deadlineLabel, type GameState, type Action,
 } from '../../src/game/engine';
-import { ROLE_NAMES, PACK, RULE_SLIDES, MARKET, type OptionKey, type RoleId } from '../../src/game/pack';
+import { ROLE_NAMES, PACK, RULE_SLIDES, MARKET, COPY, type OptionKey, type RoleId } from '../../src/game/pack';
 import { AudioDirector } from '../../src/ui/audio';
 import { CallSubtitle } from '../../src/ui/Subtitle';
 import { tableName, GEM, RoleTag } from '../../src/ui/common';
@@ -53,7 +53,7 @@ function EnterRoom({ onRoom }: { onRoom: (r: string) => void }) {
   return (
     <div className="phone" style={{ padding: 22, gap: 14, justifyContent: 'center' }}>
       <img src="/img/pebble_wave.webp" alt="" style={{ height: 150, alignSelf: 'center' }} className="bob" />
-      <h2 style={{ fontSize: 26, textAlign: 'center' }}>Whitewater Desk</h2>
+      <h2 style={{ fontSize: 26, textAlign: 'center' }}>{COPY.gameName}</h2>
       <input className="field" placeholder="Room code on the big screen" value={v} onChange={(e) => setV(e.target.value.toUpperCase())} autoCapitalize="characters" />
       <button className="btn-gold" onClick={() => v.trim() && onRoom(v.trim())}>Continue</button>
     </div>
@@ -71,7 +71,7 @@ function Join({ s, pid, act, audio }: { s: GameState; pid: string; act: (a: Acti
   };
   return (
     <div className="phone" style={{ padding: 20, gap: 16 }}>
-      <header style={{ padding: 0 }}><span className="tag" style={{ color: 'var(--river-soft)' }}>ROOM {s.room}</span><h2 style={{ fontSize: 26, marginTop: 6 }}>Join the desk</h2></header>
+      <header style={{ padding: 0 }}><span className="tag" style={{ color: 'var(--river-soft)' }}>ROOM {s.room}</span><h2 style={{ fontSize: 26, marginTop: 6 }}>Join your table</h2></header>
       <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}><span className="tag" style={{ color: '#FFD36B' }}>YOUR NICKNAME</span>
         <input className="field" maxLength={18} value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Linh" /></label>
       <span className="tag" style={{ color: '#FFD36B' }}>YOUR TABLE NUMBER</span>
@@ -115,10 +115,11 @@ function Game({ s, pid, act, audio, offset, connected, flash }: { s: GameState; 
 
   // the trap and small call ring on the leader's phone
   const rang = useRef<Set<string>>(new Set());
+  const live = useRef({ trap: tr.trap?.state, small: tr.small?.state }); live.current = { trap: tr.trap?.state, small: tr.small?.state };
   useEffect(() => {
     if (!isLeader) return;
-    if (tr.trap?.state === 'pending' && !rang.current.has('trap' + r.id)) { rang.current.add('trap' + r.id); audio.muteVoice = s.settings.muteCalls; audio.sfx('ring', 0.4); setTimeout(() => audio.sayNow('call_trap', 0.55), 1500); }
-    if (tr.small?.state === 'pending' && !rang.current.has('small' + r.id)) { rang.current.add('small' + r.id); audio.muteVoice = s.settings.muteCalls; audio.sfx('ring', 0.4); setTimeout(() => audio.sayNow('call_small', 0.55), 1500); }
+    if (tr.trap?.state === 'pending' && !rang.current.has('trap' + r.id)) { rang.current.add('trap' + r.id); audio.muteVoice = s.settings.muteCalls; audio.sfx('ring', 0.4); setTimeout(() => { if (live.current.trap === 'pending') audio.sayNow('call_trap', 0.55); }, 1500); }
+    if (tr.small?.state === 'pending' && !rang.current.has('small' + r.id)) { rang.current.add('small' + r.id); audio.muteVoice = s.settings.muteCalls; audio.sfx('ring', 0.4); setTimeout(() => { if (live.current.small === 'pending') audio.sayNow('call_small', 0.55); }, 1500); }
   }, [tr.trap?.state, tr.small?.state, isLeader]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => { if (killedOptions(s).length && 'vibrate' in navigator) navigator.vibrate?.(200); }, [killedOptions(s).length]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -156,7 +157,7 @@ function Game({ s, pid, act, audio, offset, connected, flash }: { s: GameState; 
     <div className="phone" onClick={unlock}>{header}<main>
       {s.phase === 'lobby' ? (
         <div className="pcard"><span className="t">You are in!</span><p>Wait for the host. At your table: {ms.map((m) => m.name).join(', ')}.</p>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><img src="/img/sunluna_emblem.webp" alt="" style={{ height: 44 }} /><span className="muted" style={{ fontSize: 14 }}>Today your table leads <b style={{ color: '#FFD36B' }}>Sun &amp; Luna</b>, a fine jewelry brand.</span></div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}><img src="/img/sunluna_emblem.webp" alt="" style={{ height: 44 }} /><span className="muted" style={{ fontSize: 14 }}>Today your table leads <b style={{ color: '#FFD36B' }}>{COPY.companyLine}</b>.</span></div>
           <p className="muted" style={{ fontSize: 14 }}>Tables play best with 3 to 6 people.</p></div>
       ) : (
         <>
@@ -320,7 +321,7 @@ function Decide({ s, pid, act, now, flash }: { s: GameState; pid: string; act: (
       </div>
       {allowed ? (
         <button className={arm ? 'btn-ruby' : 'btn-gold'} style={{ minHeight: 58, fontSize: 18 }} disabled={!d.option || !d.measure}
-          onClick={async () => { if (!arm) { setArm(true); setTimeout(() => setArm(false), 4000); return; } setArm(false); const ok = await act({ t: 'seal', playerId: pid }); if (ok) flash('Sealed! No way back.', true); }}>
+          onClick={async () => { if (!arm) { setArm(true); setTimeout(() => setArm(false), 4000); return; } setArm(false); const offerFirst = !!r.trap && !tr.trap; const ok = await act({ t: 'seal', playerId: pid }); if (ok) flash(offerFirst ? 'Not sealed yet: answer the supplier offer first.' : 'Sealed! No way back.', !offerFirst); }}>
           {arm ? 'Tap again to seal for the whole table' : 'Seal the decision'}
         </button>
       ) : <p className="muted" style={{ padding: '0 4px' }}>★ {leader?.name ?? 'Your leader'} seals for the table. Everyone can edit the draft. If the leader is offline for 30 seconds, anyone can seal.</p>}
@@ -330,11 +331,12 @@ function Decide({ s, pid, act, now, flash }: { s: GameState; pid: string; act: (
 
 function TrapSheet({ s, pid, act }: { s: GameState; pid: string; act: (a: Action) => Promise<boolean> }) {
   const r = round(s); const [pick, setPick] = useState<null | 'sign' | 'decline' | 'escalate' | 'ask_time'>(null);
-  const labels = { sign: 'Sign now', decline: 'Decline', escalate: 'Take it to the CEO and Legal · 15 min', ask_time: 'Ask for more time' } as const;
+  const labels = COPY.trapLabels;
   return (
     <div className="sheet"><div>
       <div className="row"><img className="gem" src={GEM.offer} alt="" /><span className="tag" style={{ color: 'var(--amber)' }}>INCOMING OFFER · {r.trap!.label}</span></div>
-      <span style={{ fontFamily: 'var(--f-title)', fontSize: 20, color: 'var(--cream)', fontWeight: 700 }}>Velta Gems is on the line</span>
+      <span style={{ fontFamily: 'var(--f-title)', fontSize: 20, color: 'var(--cream)', fontWeight: 700 }}>{COPY.trapCaller}</span>
+      {team(s, s.players[pid].table).trap?.early && <p style={{ margin: 0, fontSize: 14, color: 'var(--amber)' }}>{COPY.trapNeedAnswer}</p>}
       <p style={{ margin: 0, fontSize: 16, lineHeight: 1.5 }}>{r.trap!.text}</p>
       <p className="muted" style={{ margin: 0, fontSize: 13 }}>Talk as a table. One answer counts for everyone.</p>
       {(Object.keys(labels) as (keyof typeof labels)[]).map((k) => <button key={k} className={`choice ${pick === k ? 'on' : ''}`} onClick={() => setPick(k)}>{labels[k]}</button>)}
@@ -345,7 +347,7 @@ function TrapSheet({ s, pid, act }: { s: GameState; pid: string; act: (a: Action
 
 function SmallSheet({ s, pid, act }: { s: GameState; pid: string; act: (a: Action) => Promise<boolean> }) {
   const r = round(s); const [pick, setPick] = useState<null | 'approve' | 'decline' | 'escalate'>(null);
-  const labels = { approve: 'Yes, approve it', decline: 'No, keep one each', escalate: 'Ask the Regional Director · 15 min' } as const;
+  const labels = COPY.smallLabels;
   return (
     <div className="sheet"><div>
       <div className="row"><img className="gem" src={GEM.call} alt="" /><span className="tag" style={{ color: 'var(--emerald)' }}>QUICK CALL · {r.small_call!.from.toUpperCase()}</span></div>

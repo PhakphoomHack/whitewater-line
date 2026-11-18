@@ -1,6 +1,6 @@
-// Whitewater Desk game engine. Pure functions: (state, action, now) -> state.
+// Whitewater Line game engine (factory version of Whitewater Desk). Pure functions: (state, action, now) -> state.
 // The big-screen tab is the single authority that runs this; phones only send actions.
-import { PACK, SUPPORTS, SCORING, TRAP_REPLIES, IRRITATED_PREFIX, MARKET, EXCLUSIVES, callVoiceId, type Card, type OptionKey, type RoleId, type RoundDef } from './pack';
+import { PACK, SUPPORTS, SCORING, TRAP_REPLIES, COPY, IRRITATED_PREFIX, MARKET, EXCLUSIVES, callVoiceId, type Card, type OptionKey, type RoleId, type RoundDef } from './pack';
 
 export type Phase = 'lobby' | 'rules' | 'brief' | 'play' | 'review' | 'reveal' | 'final';
 
@@ -13,7 +13,7 @@ export interface TeamRound {
   opened: string[];
   pins: { ref: string; by: string }[];
   calls: CallLog[];
-  trap: null | { state: 'pending' | 'sign' | 'decline' | 'escalate' | 'ask_time'; by?: string; reply?: { who: string; text: string; voice: string | null } };
+  trap: null | { state: 'pending' | 'sign' | 'decline' | 'escalate' | 'ask_time'; early?: boolean; by?: string; reply?: { who: string; text: string; voice: string | null } };
   small: null | { state: 'pending' | 'approve' | 'decline' | 'escalate'; by?: string; reply?: { who: string; text: string; voice: string | null } };
   draft: { option: OptionKey | null; evidence: string[]; measure: string | null };
   sealed: Sealed | null;
@@ -154,6 +154,7 @@ function cardAllowed(s: GameState, table: number, c: Card): boolean {
   const ch = r1Choice(s, table);
   if (c.only_if === 'r1_choice_in_BC') return ch === 'B' || ch === 'C';
   if (c.only_if === 'r1_choice_A') return ch === 'A';
+  if (c.only_if === 'r1_choice_D') return ch === 'D';
   return false;
 }
 export function optionBase(s: GameState, table: number, opt: OptionKey): number {
@@ -268,11 +269,11 @@ export function computeScore(s: GameState, table: number, tr: TeamRound): Score 
   if (over) { T -= over; notes.push(`-${over} trust: more than ${SCORING.freeCalls} calls.`); }
   if (tr.pins.length < 2) { T -= 1; notes.push('-1 trust: sealed with fewer than 2 pins.'); }
   if (tr.small?.state === 'escalate') { T -= 1; notes.push('-1 trust: escalated a call you could make yourself.'); }
-  if (tr.trap?.state === 'decline') { T -= 1; notes.push('-1 trust: declined a $6.5M deal without the CEO and Legal.'); }
-  if (tr.trap?.state === 'escalate') notes.push('Good: you took the supplier deal to the CEO and Legal.');
+  if (tr.trap?.state === 'decline') { T -= 1; notes.push(COPY.trapNotes.decline); }
+  if (tr.trap?.state === 'escalate') notes.push(COPY.trapNotes.escalate);
   const gaveFact = tr.gifts.some((g) => findCard(r, g.ref)?.kind === 'note' || findCard(r, g.ref)?.kind === 'report');
   if (gaveFact) { T += 1; notes.push('+1 trust: you shared a confirmed fact with another table.'); }
-  if (tr.trap?.state === 'sign') { Q = 1; T = 1; notes.push('Signed a $6.5M contract without authority: quality and trust drop to 1.'); }
+  if (tr.trap?.state === 'sign') { Q = 1; T = 1; notes.push(COPY.trapNotes.sign); }
   return { S, Q: clamp(Q), T: clamp(T), notes };
 }
 export function finalScore(tr: TeamRound) {
@@ -347,7 +348,7 @@ export function tick(prev: GameState, now: number): GameState {
   });
   if (r.trap && t >= r.trap.at_real_seconds) once(`trap:${r.id}`, () => {
     cue(s, { sfx: 'news', voice: 'news_r2' });
-    for (const tb of tablesInUse(s)) { const tr = teamMut(s, tb); if (!tr.sealed) tr.trap = { state: 'pending' }; }
+    for (const tb of tablesInUse(s)) { const tr = teamMut(s, tb); if (!tr.sealed && !tr.trap) tr.trap = { state: 'pending' }; }
   });
   if (r.small_call && t >= r.small_call.at_real_seconds) once(`small:${r.id}`, () => {
     for (const tb of tablesInUse(s)) { const tr = teamMut(s, tb); if (!tr.sealed) tr.small = { state: 'pending' }; }
@@ -474,6 +475,11 @@ export function apply(prev: GameState, a: Action, now: number): GameState {
       if (!tr.draft.option) fail('Choose an option first.');
       if (killedOptions(s).includes(tr.draft.option!)) fail('Breaking news ruled this option out.');
       if (!tr.draft.measure) fail('Choose how you will know it worked.');
+      // every table meets the supplier offer: a table that tries to seal before it arrives gets it now
+      if (round(s).trap) {
+        if (!tr.trap) { tr.trap = { state: 'pending', early: true }; break; }
+        if (tr.trap.state === 'pending') fail(COPY.trapNeedAnswer);
+      }
       doSeal(s, p.table, now, p.id, false);
       break;
     }
@@ -493,8 +499,8 @@ export function apply(prev: GameState, a: Action, now: number): GameState {
       if (a.choice === 'escalate') {
         const e = round(s).small_call!.choices.escalate;
         tr.costs += e.cost;
-        tr.small = { state: 'escalate', by: p.id, reply: { who: 'Regional Director', text: "That's your call. You don't need me for this.", voice: 'call_small_esc' } };
-      } else tr.small = { state: a.choice, by: p.id, reply: { who: 'Store operations lead', text: a.choice === 'approve' ? 'Great, thank you. I will set it up.' : 'Understood. I will keep one advisor per store.', voice: null } };
+        tr.small = { state: 'escalate', by: p.id, reply: { ...COPY.smallReplies.escalate, voice: 'call_small_esc' } };
+      } else tr.small = { state: a.choice, by: p.id, reply: { ...COPY.smallReplies[a.choice], voice: null } };
       break;
     }
     case 'stance': {

@@ -55,10 +55,30 @@ export const SCORING = {
 };
 
 export const TRAP_REPLIES = {
-  escalate: { who: 'CEO office', text: 'Thank you for flagging this. The CEO and Legal will review it. Do not sign anything today.', audio: 'call_trap_esc', cost: 15 },
-  ask_time: { who: 'Velta Gems sales rep', text: 'Fine. Twenty-four hours. Not a minute more.', audio: 'call_trap_time', cost: 0 },
-  sign: { who: 'Velta Gems sales rep', text: 'Excellent. The contract is on its way. Three years, all Classic lines.', audio: null, cost: 0 },
-  decline: { who: 'Velta Gems sales rep', text: 'Your loss. Other brands are waiting.', audio: null, cost: 0 },
+  escalate: { who: 'Regional VP office', text: 'Thank you for flagging this. The Regional VP and Legal will review it. Do not sign anything today.', audio: 'call_trap_esc', cost: 15 },
+  ask_time: { who: 'Kestrel Metals sales rep', text: 'Fine. Twenty-four hours. Not a minute more.', audio: 'call_trap_time', cost: 0 },
+  sign: { who: 'Kestrel Metals sales rep', text: 'Excellent. The contract is on its way. Three years, all your brass alloy.', audio: null, cost: 0 },
+  decline: { who: 'Kestrel Metals sales rep', text: 'Your loss. Other buyers are waiting.', audio: null, cost: 0 },
+};
+
+// Words on screen that belong to the case, not to the game engine (so a new case pack only edits this file).
+export const COPY = {
+  gameName: 'Whitewater Line',
+  companyLine: 'Sun & Luna Manufacturing, a jewelry factory',
+  trapCaller: 'Kestrel Metals is on the line',
+  trapLabels: { sign: 'Sign now', decline: 'Decline', escalate: 'Take it to the Regional VP and Legal · 15 min', ask_time: 'Ask for more time' },
+  trapNeedAnswer: 'A supplier offer just came in. Answer it as a table before you seal.',
+  trapNotes: {
+    decline: '-1 trust: declined a $6.5M deal without the Regional VP and Legal.',
+    escalate: 'Good: you took the supplier deal to the Regional VP and Legal.',
+    sign: 'Signed a $6.5M contract without authority: quality and trust drop to 1.',
+  },
+  smallLabels: { approve: 'Yes, approve it', decline: 'No, call in a second tech', escalate: 'Ask the Plant Director · 15 min' },
+  smallReplies: {
+    approve: { who: 'Weekend shift lead', text: 'Great, thank you. I will set it up.' },
+    decline: { who: 'Weekend shift lead', text: 'Understood. I will call in a second tech.' },
+    escalate: { who: 'Plant Director', text: "That's your call. You don't need me for this." },
+  },
 };
 
 // ---------- Audio + subtitles ----------
@@ -67,33 +87,33 @@ export interface VoiceLine { id: string; speaker: string; text: string }
 export const VOICE: Record<string, VoiceLine> = {
   host_welcome: { id: 'host_welcome', speaker: 'Host', text: 'Welcome aboard, everyone. Grab your phone, scan the code, and find your table.' },
   host_rules: { id: 'host_rules', speaker: 'Host', text: 'Four rules before we hit the water. Evidence matters. Ask the right people, not everyone. Every report and every call costs time. And luck never changes your score.' },
-  host_r1: { id: 'host_r1', speaker: 'Host', text: 'Round one. The VIP Preview. Our top client wants a private look at the new collection this Saturday. You have until two p.m. game time. Go!' },
-  host_r2: { id: 'host_r2', speaker: 'Host', text: 'Round two. The Late Shipment. Only six hundred of one thousand units arrived. Decide where they go by twelve noon. Go!' },
+  host_r1: { id: 'host_r1', speaker: 'Host', text: 'Round one. The Rush Order. Our key customer wants five thousand pendants one week early. You have until two p.m. game time. Go!' },
+  host_r2: { id: 'host_r2', speaker: 'Host', text: 'Round two. The Short Supply. Only six hundred of one thousand kilos of brass arrived. Decide how to use it by twelve noon. Go!' },
   host_1min: { id: 'host_1min', speaker: 'Host', text: 'One minute left on the river. Time to seal your decision.' },
   host_first_seal: { id: 'host_first_seal', speaker: 'Host', text: 'The first table has sealed! Everyone else, the river is still moving.' },
   host_timeup: { id: 'host_timeup', speaker: 'Host', text: 'Time\'s up. Where a table did not decide, the river decided for you.' },
   host_reveal: { id: 'host_reveal', speaker: 'Host', text: 'All right. Let\'s see what the river says.' },
   host_champion: { id: 'host_champion', speaker: 'Host', text: 'And the best decision of the round goes to this table! Give them a big hand.' },
   host_end: { id: 'host_end', speaker: 'Host', text: 'That\'s the river for today. Now, let\'s talk about how you decided.' },
-  news_r1: { id: 'news_r1', speaker: 'News', text: 'Breaking news. The courier has just confirmed: the HQ shipment is delayed to Sunday.' },
-  news_r2: { id: 'news_r2', speaker: 'News', text: 'Breaking news. Supplier Velta Gems is calling every desk with an offer. Read it carefully.' },
+  news_r1: { id: 'news_r1', speaker: 'News', text: 'Breaking news. Maintenance has just confirmed: the Line one plating tank has failed. Line one is down for forty-eight hours.' },
+  news_r2: { id: 'news_r2', speaker: 'News', text: 'Breaking news. Supplier Kestrel Metals is calling every table with an offer. Read it carefully.' },
   // phone calls (played on the caller's phone only)
-  call_r1_assistant: { id: 'call_r1_assistant', speaker: "Mrs. Arora's assistant", text: "She wants to choose a necklace for her daughter's wedding next month, before anyone else sees the collection." },
-  call_r1_store_mgr: { id: 'call_r1_store_mgr', speaker: 'Flagship store manager', text: 'Small previews work. Big ones leak photos. Twelve pieces is plenty for a buyer like her.' },
-  call_r1_regional: { id: 'call_r1_regional', speaker: 'Regional Director', text: 'She is a friend of our CEO. Keep her happy, but do not break the launch.' },
-  call_r1_broker: { id: 'call_r1_broker', speaker: 'Insurance broker', text: 'Your cap is two million dollars out of the vault. More cover needs forty-eight hours.' },
-  call_r1_pr: { id: 'call_r1_pr', speaker: 'PR agency', text: 'Any leaked photo breaks our magazine deal.' },
-  call_r2_regional: { id: 'call_r2_regional', speaker: 'Regional Director', text: 'I can approve the allocation. A supplier contract that size is not mine. Take it to the CEO.' },
-  call_r2_store_ops: { id: 'call_r2_store_ops', speaker: 'Store operations lead', text: 'Small stores barely sell this line in December.' },
+  call_r1_buyer: { id: 'call_r1_buyer', speaker: "Aurelle's buyer", text: 'Our store launch is on the twentieth. Three thousand pieces would cover our top stores. The rest can follow on the original date.' },
+  call_r1_planner: { id: 'call_r1_planner', speaker: 'Head of Production Planning', text: 'We can still finish the last two thousand by the original date, even if a line stops for two days.' },
+  call_r1_maint: { id: 'call_r1_maint', speaker: 'Head of Maintenance', text: 'The Line one tank is overdue. Run it non-stop this week and I would expect a breakdown.' },
+  call_r1_qc: { id: 'call_r1_qc', speaker: 'QC Manager', text: 'I will not sign a certificate for parts we did not inspect.' },
+  call_r1_freight: { id: 'call_r1_freight', speaker: 'Freight forwarder', text: 'Two air shipments are fine. Just book forty-eight hours ahead.' },
+  call_r2_plant_dir: { id: 'call_r2_plant_dir', speaker: 'Plant Director', text: 'I can approve the allocation. A supplier contract that size is not mine. Take it to the Regional VP.' },
+  call_r2_prod_head: { id: 'call_r2_prod_head', speaker: 'Head of Production', text: 'Long runs on the two big orders waste the least metal. Small orders can wait two weeks.' },
   call_r2_legal: { id: 'call_r2_legal', speaker: 'Legal', text: 'Never sign an exclusive deal in two hours.' },
-  call_r2_supplier: { id: 'call_r2_supplier', speaker: 'Velta Gems sales rep', text: 'Other brands want this slot. Decide fast.' },
-  call_r2_top_store: { id: 'call_r2_top_store', speaker: 'Top store manager', text: 'Give my store more. We always sell out.' },
-  call_trap: { id: 'call_trap', speaker: 'Velta Gems sales rep', text: 'We can deliver the missing four hundred units in five days. You just sign a three-year exclusive contract for all Classic lines. Six and a half million dollars. I need your answer in two hours.' },
-  call_small: { id: 'call_small', speaker: 'Store operations lead', text: 'Quick one. Can two small stores share one advisor in December? I need a yes or no today.' },
-  call_small_esc: { id: 'call_small_esc', speaker: 'Regional Director', text: "That's your call. You don't need me for this." },
-  call_trap_esc: { id: 'call_trap_esc', speaker: 'CEO office', text: 'Thank you for flagging this. The CEO and Legal will review it. Do not sign anything today.' },
-  call_trap_time: { id: 'call_trap_time', speaker: 'Velta Gems sales rep', text: 'Fine. Twenty-four hours. Not a minute more.' },
-  rules_1: { id: 'rules_1', speaker: 'Host', text: 'Here is how the river works. Each table is the leadership team of Sun and Luna, a fine jewelry brand.' },
+  call_r2_supplier: { id: 'call_r2_supplier', speaker: 'Kestrel Metals sales rep', text: 'Other buyers want this slot. Decide fast.' },
+  call_r2_account: { id: 'call_r2_account', speaker: 'Aurelle account manager', text: 'Aurelle is our biggest customer. Give them everything first.' },
+  call_trap: { id: 'call_trap', speaker: 'Kestrel Metals sales rep', text: 'We can deliver the missing four hundred kilos in five days. You just sign a three-year exclusive contract for all your brass alloy. Six and a half million dollars. I need your answer in two hours.' },
+  call_small: { id: 'call_small', speaker: 'Weekend shift lead', text: 'Quick one. Can Lines three and four share one maintenance tech this weekend? I need a yes or no today.' },
+  call_small_esc: { id: 'call_small_esc', speaker: 'Plant Director', text: "That's your call. You don't need me for this." },
+  call_trap_esc: { id: 'call_trap_esc', speaker: 'Regional VP office', text: 'Thank you for flagging this. The Regional VP and Legal will review it. Do not sign anything today.' },
+  call_trap_time: { id: 'call_trap_time', speaker: 'Kestrel Metals sales rep', text: 'Fine. Twenty-four hours. Not a minute more.' },
+  rules_1: { id: 'rules_1', speaker: 'Host', text: 'Here is how the river works. Each table is the leadership team of Sun and Luna Manufacturing, a jewelry factory.' },
   rules_2: { id: 'rules_2', speaker: 'Host', text: 'Each of you gets a role and your own cards. Nobody sees everything, so talk to each other.' },
   rules_3: { id: 'rules_3', speaker: 'Host', text: 'Some cards are sealed. Opening a report, or calling someone, costs game time. Choose what you really need.' },
   rules_4: { id: 'rules_4', speaker: 'Host', text: 'Pin the facts that matter to your team board. Then choose one option, up to two pieces of evidence, and how you will know it worked.' },
@@ -126,7 +146,7 @@ export const EXCLUSIVES: Record<string, Card[]> = {
 
 // ---------- How to play: voice + highlighted words on the big screen ----------
 export const RULE_SLIDES: { voice: string; big: string; small: string; pebble: string }[] = [
-  { voice: 'rules_1', big: 'Each table = one leadership team', small: 'Sun & Luna, a fine jewelry brand', pebble: 'wave' },
+  { voice: 'rules_1', big: 'Each table = one leadership team', small: COPY.companyLine, pebble: 'wave' },
   { voice: 'rules_2', big: 'Nobody sees everything', small: 'You each get a role and your own cards. Talk.', pebble: 'think' },
   { voice: 'rules_3', big: 'Reports and calls cost time', small: 'Open only what you really need', pebble: 'phone' },
   { voice: 'rules_4', big: '1 option + 2 evidence + 1 measure', small: 'Pin facts to your team board first', pebble: 'point' },

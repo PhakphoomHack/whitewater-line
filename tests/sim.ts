@@ -69,6 +69,8 @@ function playRound(s: GameState, now: number, styles: Record<number, Style>, rid
         // a non-leader tries first: must be refused while the leader is online
         if (ms.length > 1) { const other = ms.find((m) => m.id !== leader)!; s = act(s, { t: 'seal', playerId: other.id }, nowT, false); }
         s = act(s, { t: 'seal', playerId: leader }, nowT);
+        // sealing before the supplier offer brings the offer in: answer it next tick, then seal again
+        if (!team(s, tb).sealed && team(s, tb).trap?.state === 'pending') plan[tb].done = false;
       }
     }
   }

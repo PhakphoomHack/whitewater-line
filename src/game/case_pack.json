@@ -478,6 +478,15 @@
      "only_if": "r1_choice_A"
     },
     {
+     "id": "r2-merch-6",
+     "role": "merch",
+     "kind": "note",
+     "cost": 0,
+     "text": "After the rush order, Aurelle kept the original date. No reorder yet.",
+     "tier": "context",
+     "only_if": "r1_choice_D"
+    },
+    {
      "id": "r2-fin-1",
      "role": "finance",
      "kind": "report",

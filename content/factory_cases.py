@@ -106,6 +106,7 @@ R2 = {
   card('r2-merch-3', 'merch', 'report', 'context', 'Last year, small-order customers accepted a 2-week delay 9 times out of 10.', title='Delay history'),
   card('r2-merch-4', 'merch', 'note', 'key', 'After the rush order, Aurelle placed a reorder: 100 kg more, due in 10 days.', fact='waitlist', only_if='r1_choice_in_BC'),
   card('r2-merch-5', 'merch', 'note', 'key', 'After the rush order, Aurelle told our sales team the delivery felt chaotic.', only_if='r1_choice_A'),
+  card('r2-merch-6', 'merch', 'note', 'context', 'After the rush order, Aurelle kept the original date. No reorder yet.', only_if='r1_choice_D'),
   # Procurement and Cost
   card('r2-fin-1', 'finance', 'report', 'context', 'Brass alloy price rose 8% this quarter.', title='Price trend'),
   card('r2-fin-2', 'finance', 'note', 'critical', 'Contract approval: Plant Director up to $500k. Over $1M: Regional VP and Legal.', fact='authority'),

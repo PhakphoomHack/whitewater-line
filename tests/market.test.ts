@@ -13,7 +13,7 @@ H({ c: 'brief', round: 0 }); H({ c: 'start' });
 ok(!s.cues.some((c) => c.voice === 'rules_market'), 'no market rules in round 1');
 for (const tb of [1, 2, 3]) {
   const L = team(s, tb).leader!;
-  s = apply(s, { t: 'draft', playerId: L, option: 'B', measure: "Mrs. Arora's purchase and feedback" }, T0 + 1000);
+  s = apply(s, { t: 'draft', playerId: L, option: 'B', measure: "Aurelle's stock at launch and their feedback" }, T0 + 1000);
   s = apply(s, { t: 'seal', playerId: L }, T0 + 1000);
 }
 s = tick(s, T0 + 300_000); ok(!s.rise, 'no rise before half the round');
@@ -54,9 +54,10 @@ ok(Object.values(s.players).every((p) => !p.scoutAt), 'scouts sent home');
 refused(s, { t: 'give', playerId: 't1p0', ref: ex1, to: 4 }, R2 + 482_000, 'give after close');
 // trust for sharing a fact
 const L1 = team(s, 1).leader!;
-s = apply(s, { t: 'draft', playerId: L1, option: 'B', measure: 'Sell-through by Dec 31' }, R2 + 483_000);
+if (team(s, 1).trap?.state === 'pending') s = apply(s, { t: 'trap', playerId: L1, choice: 'escalate' }, R2 + 483_000);
+s = apply(s, { t: 'draft', playerId: L1, option: 'B', measure: 'Big orders shipped on time, with certificates' }, R2 + 483_000);
 s = apply(s, { t: 'seal', playerId: L1 }, R2 + 483_000);
-const factGift = ['x2-overnight', 'x2-deposit', 'x2-renovation', 'x2-penalty', 'x2-mobile'].includes(ex1);
+const factGift = ['x2-remelt', 'x2-deposit', 'x2-nord', 'x2-penalty', 'x2-audit'].includes(ex1);
 ok(team(s, 1).score!.notes.some((n) => n.includes('shared a confirmed fact')) === factGift, `sharing trust bonus only for facts (exclusive ${ex1})`);
 console.log(`${pass} market checks passed, ${fails.length} failed`);
 fails.forEach((f) => console.log('  FAIL ' + f));

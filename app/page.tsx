@@ -9,7 +9,7 @@ export default function Home() {
       <img className="bg" src="/img/stage_river.webp" alt="" />
       <div className="veil" style={{ background: 'linear-gradient(90deg, rgba(5,11,28,0.92), rgba(5,11,28,0.45))' }} />
       <div className="content" style={{ justifyContent: 'center', maxWidth: 720 }}>
-        <span className="kicker">WHITEWATER DESK</span>
+        <span className="kicker">WHITEWATER LINE</span>
         <h1>A decision game on the river</h1>
         <p className="muted" style={{ fontSize: 18, lineHeight: 1.5, margin: 0 }}>Open the big screen on the laptop that goes to the projector. Players join from their phones. The host controls the game from a phone.</p>
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
