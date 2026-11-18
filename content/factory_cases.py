@@ -47,7 +47,7 @@ R1 = {
   card('r1-hr-4', 'hr', 'rumor', 'rumor', 'Some workers want extra overtime pay before the New Year.', title='Shop-floor mood', source='canteen talk'),
   # Quality
   card('r1-mkt-1', 'marketing', 'note', 'key', 'Customer rule: every shipment needs a QC certificate. No certificate, no delivery.'),
-  card('r1-mkt-2', 'marketing', 'note', 'context', 'Final QC of 3,000 pieces takes 1 day. Pass rate this month: 98%.'),
+  card('r1-mkt-2', 'marketing', 'note', 'context', 'Final QC of this batch takes 1 day. Pass rate this month: 98%.'),
   card('r1-mkt-3', 'marketing', 'report', 'context', 'Rushed batches last year had 3 times more plating defects.', title='Defect history'),
   card('r1-mkt-4', 'marketing', 'rumor', 'rumor', 'Aurelle rarely checks certificates on rush orders.', title='QC rumor', source='QC team chat'),
  ],
