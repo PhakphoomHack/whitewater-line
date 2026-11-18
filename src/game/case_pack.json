@@ -1,10 +1,9 @@
 {
- "pack": "jewelry-v2",
+ "pack": "factory-v1",
  "company": {
-  "name": "Sun & Luna",
-  "type": "Fine jewelry brand",
-  "stores": 12,
-  "online": true
+  "name": "Sun & Luna Manufacturing",
+  "type": "Jewelry factory",
+  "lines": 4
  },
  "roles": [
   "ops",
@@ -15,42 +14,42 @@
   "cos"
  ],
  "role_names": {
-  "ops": "Retail Operations",
-  "merch": "Merchandising",
-  "finance": "Finance",
-  "hr": "HR",
-  "marketing": "Marketing",
+  "ops": "Production",
+  "merch": "Supply Chain and Planning",
+  "finance": "Procurement and Cost",
+  "hr": "EHS and People",
+  "marketing": "Quality",
   "cos": "Chief of Staff"
  },
  "rounds": [
   {
    "id": "r1",
-   "title": "The VIP Preview",
+   "title": "The Rush Order",
    "real_seconds": 720,
    "game_minutes": 240,
    "clock_start": "10:00",
-   "brief": "Our top client, Mrs. Arora, asks for a private preview of the new Aurora collection this Saturday at 6 p.m. at the flagship store. The public launch is next Thursday. Decide by 2 p.m.",
+   "brief": "Aurelle, a key customer, wants all 5,000 pendants of order AU-118 one week early, for a store launch. Decide by 2 p.m.",
    "options": {
     "A": {
-     "label": "Yes, full preview",
-     "text": "All 40 Aurora pieces, Saturday 6 p.m., her full guest list.",
+     "label": "Full order early",
+     "text": "All 5,000 in 1 week. Both lines run 12-hour shifts, 7 days a week.",
      "base": 1
     },
     "B": {
-     "label": "Yes, but smaller",
-     "text": "Saturday, 1 hour, the 12 pieces already in our vault, phones checked at the door.",
+     "label": "Split the shipment",
+     "text": "Ship the 3,000 that pass QC this week. Ship the other 2,000 on the original date.",
      "base": 5,
      "tag": "Reduce scope"
     },
     "C": {
-     "label": "Another date",
-     "text": "Invite her to a private first look on Wednesday, the night before launch.",
+     "label": "Ask for a new date",
+     "text": "Offer all 5,000 three days before the original date, with no extra overtime.",
      "base": 4,
      "tag": "Park"
     },
     "D": {
      "label": "Polite no",
-     "text": "Keep the launch plan. Offer her a seat at the launch.",
+     "text": "Keep the original date for the full order.",
      "base": 2
     }
    },
@@ -60,7 +59,7 @@
      "role": "ops",
      "kind": "note",
      "cost": 0,
-     "text": "Flagship can host 15 guests max in the private salon.",
+     "text": "Normal output: 250 finished pendants a day. Line 1 plates, Line 2 polishes.",
      "tier": "key"
     },
     {
@@ -68,7 +67,7 @@
      "role": "ops",
      "kind": "note",
      "cost": 0,
-     "text": "Last VIP night ran 30 minutes late. Staff left at 10 p.m.",
+     "text": "Both lines already run 2 shifts, 6 days a week.",
      "tier": "context"
     },
     {
@@ -76,35 +75,35 @@
      "role": "ops",
      "kind": "report",
      "cost": 15,
-     "text": "Security firm needs 24 hours' notice for extra guards. Cost: $1,500.",
+     "text": "A third shift needs 5 trained platers. We have 2.",
      "tier": "context",
-     "title": "Security notice"
+     "title": "Third shift check"
     },
     {
      "id": "r1-ops-4",
      "role": "ops",
      "kind": "report",
      "cost": 15,
-     "text": "Courier from HQ: the other 28 Aurora pieces arrive Friday 11 p.m. Delays happened twice this year.",
-     "fact": "shipment",
+     "text": "Line 1 plating tank is overdue for service. It failed twice this year when it ran non-stop.",
      "tier": "critical",
-     "title": "Courier schedule"
+     "title": "Line 1 service log",
+     "fact": "tank"
     },
     {
      "id": "r1-merch-1",
      "role": "merch",
      "kind": "note",
      "cost": 0,
-     "text": "12 Aurora pieces are already in the flagship vault. Value: $1.1M.",
-     "fact": "vault",
-     "tier": "critical"
+     "text": "3,100 of the 5,000 pendants are finished and waiting for final QC.",
+     "tier": "critical",
+     "fact": "stock"
     },
     {
      "id": "r1-merch-2",
      "role": "merch",
      "kind": "note",
      "cost": 0,
-     "text": "Full Aurora collection: 40 pieces, value $3.4M.",
+     "text": "Original ship date: in 2 weeks. Aurelle now asks for all 5,000 in 1 week.",
      "tier": "context"
     },
     {
@@ -112,26 +111,26 @@
      "role": "merch",
      "kind": "report",
      "cost": 15,
-     "text": "Mrs. Arora's last 3 purchases were all necklaces.",
+     "text": "We ship to Aurelle by air: 3 days, door to door.",
      "tier": "context",
-     "title": "Client purchase history"
+     "title": "Freight plan"
     },
     {
      "id": "r1-merch-4",
      "role": "merch",
      "kind": "rumor",
      "cost": 15,
-     "source": "a sales associate heard",
-     "text": "A rival brand is planning a private event for Mrs. Arora next week.",
+     "text": "A rival factory offered Aurelle the same pendants for 10% less.",
      "tier": "rumor",
-     "title": "Market chatter"
+     "title": "Market chatter",
+     "source": "a planner heard"
     },
     {
      "id": "r1-fin-1",
      "role": "finance",
      "kind": "note",
      "cost": 0,
-     "text": "Mrs. Arora spent $1.2M with us in the last 3 years.",
+     "text": "Aurelle buys about $2.4M from us a year.",
      "tier": "context"
     },
     {
@@ -139,7 +138,7 @@
      "role": "finance",
      "kind": "note",
      "cost": 0,
-     "text": "Event budget left this quarter: $8,000.",
+     "text": "Overtime costs 1.5 times normal pay. Overtime budget left this month: $6,000.",
      "tier": "context"
     },
     {
@@ -147,26 +146,26 @@
      "role": "finance",
      "kind": "report",
      "cost": 15,
-     "text": "Insurance covers up to $2M of pieces out of the vault at one time.",
-     "fact": "insurance",
+     "text": "Our contract with Aurelle allows split shipments: up to 2 per order, no penalty.",
      "tier": "critical",
-     "title": "Insurance limits"
+     "title": "Contract terms",
+     "fact": "split"
     },
     {
      "id": "r1-fin-4",
      "role": "finance",
      "kind": "report",
      "cost": 15,
-     "text": "Raising insurance cover takes 48 hours and costs $9,000.",
+     "text": "A second air shipment costs about $3,500 extra.",
      "tier": "context",
-     "title": "Extra insurance"
+     "title": "Freight cost"
     },
     {
      "id": "r1-hr-1",
      "role": "hr",
      "kind": "note",
      "cost": 0,
-     "text": "Saturday: 2 of 6 senior advisors are on approved leave.",
+     "text": "This week, 4 of our 30 line workers are on approved leave.",
      "tier": "context"
     },
     {
@@ -174,7 +173,7 @@
      "role": "hr",
      "kind": "note",
      "cost": 0,
-     "text": "Overtime cap: max 3 senior advisors can work Saturday night.",
+     "text": "Hours cap: 60 hours per person per week, overtime included. Line teams already work 48.",
      "tier": "key"
     },
     {
@@ -182,26 +181,26 @@
      "role": "hr",
      "kind": "report",
      "cost": 15,
-     "text": "Rule of thumb: 1 senior advisor per 4 VIP guests.",
+     "text": "Last year, minor injuries tripled on the third 12-hour shift in a row.",
      "tier": "context",
-     "title": "Staffing ratio"
+     "title": "Fatigue data"
     },
     {
      "id": "r1-hr-4",
      "role": "hr",
      "kind": "rumor",
      "cost": 15,
-     "source": "staff chat",
-     "text": "Staff say last-minute VIP nights hurt morale.",
+     "text": "Some workers want extra overtime pay before the New Year.",
      "tier": "rumor",
-     "title": "Staff mood"
+     "title": "Shop-floor mood",
+     "source": "canteen talk"
     },
     {
      "id": "r1-mkt-1",
      "role": "marketing",
      "kind": "note",
      "cost": 0,
-     "text": "Press embargo: no Aurora photos in public before next Thursday.",
+     "text": "Customer rule: every shipment needs a QC certificate. No certificate, no delivery.",
      "tier": "key"
     },
     {
@@ -209,7 +208,7 @@
      "role": "marketing",
      "kind": "note",
      "cost": 0,
-     "text": "Launch event next Thursday: 80 guests and press.",
+     "text": "Final QC of 3,000 pieces takes 1 day. Pass rate this month: 98%.",
      "tier": "context"
     },
     {
@@ -217,63 +216,63 @@
      "role": "marketing",
      "kind": "report",
      "cost": 15,
-     "text": "Our partner magazine has the exclusive first story on Aurora.",
+     "text": "Rushed batches last year had 3 times more plating defects.",
      "tier": "context",
-     "title": "Media deal"
+     "title": "Defect history"
     },
     {
      "id": "r1-mkt-4",
      "role": "marketing",
      "kind": "rumor",
      "cost": 15,
-     "source": "an influencer's post",
-     "text": "Mrs. Arora's friends love posting private events online.",
+     "text": "Aurelle rarely checks certificates on rush orders.",
      "tier": "rumor",
-     "title": "Social media check"
+     "title": "QC rumor",
+     "source": "QC team chat"
     }
    ],
    "stakeholders": [
     {
-     "id": "assistant",
-     "name": "Mrs. Arora's assistant",
+     "id": "buyer",
+     "name": "Aurelle's buyer",
      "cost": 15,
      "key": true,
      "fact": "need",
-     "text": "She wants to choose a necklace for her daughter's wedding next month, before anyone else sees the collection."
+     "text": "Our store launch is on the 20th. 3,000 pieces would cover our top stores. The rest can follow on the original date."
     },
     {
-     "id": "store_mgr",
-     "name": "Flagship store manager (12 years)",
+     "id": "planner",
+     "name": "Head of Production Planning",
+     "cost": 15,
+     "key": false,
+     "text": "We can still finish the last 2,000 by the original date, even if a line stops for 2 days."
+    },
+    {
+     "id": "maint",
+     "name": "Head of Maintenance",
      "cost": 15,
      "key": true,
-     "text": "Small previews work. Big ones leak photos. 12 pieces is plenty for a buyer like her."
+     "text": "The Line 1 tank is overdue. Run it non-stop this week and I would expect a breakdown."
     },
     {
-     "id": "regional",
-     "name": "Regional Director",
+     "id": "qc",
+     "name": "QC Manager",
      "cost": 15,
      "key": false,
-     "text": "She is a friend of our CEO. Keep her happy, but do not break the launch."
+     "text": "I will not sign a certificate for parts we did not inspect."
     },
     {
-     "id": "broker",
-     "name": "Insurance broker",
+     "id": "freight",
+     "name": "Freight forwarder",
      "cost": 15,
      "key": false,
-     "text": "Your cap is $2M out of the vault. More cover needs 48 hours."
-    },
-    {
-     "id": "pr",
-     "name": "PR agency",
-     "cost": 15,
-     "key": false,
-     "text": "Any leaked photo breaks our magazine deal."
+     "text": "Two air shipments are fine. Just book 48 hours ahead."
     }
    ],
    "breaking_news": [
     {
      "at_real_seconds": 240,
-     "text": "Courier: the HQ shipment is delayed to Sunday.",
+     "text": "Maintenance: the Line 1 plating tank has failed. Line 1 is down for 48 hours.",
      "kills": [
       "A"
      ]
@@ -281,12 +280,12 @@
    ],
    "measures": {
     "right": [
-     "Mrs. Arora's purchase and feedback",
-     "No photos online before launch"
+     "Aurelle's stock at launch and their feedback",
+     "Zero injuries, nobody over the hours cap"
     ],
     "wrong": [
-     "Instagram likes this week",
-     "Store footfall on Saturday"
+     "Overtime hours worked this week",
+     "Machine running hours"
     ]
    },
    "outcomes": {
@@ -294,86 +293,86 @@
      [
       0.3,
       "good",
-      "Somehow it worked. Nothing leaked. Pure luck."
+      "Somehow it worked and nobody got hurt. Pure luck."
      ],
      [
       0.7,
       "bad",
-      "Pieces did not arrive, insurance gap, a photo leaked."
+      "Line 1 broke down, tired crews made a reject batch, and two people got minor injuries."
      ]
     ],
     "B": [
      [
       0.85,
       "good",
-      "She bought a $180k necklace and asked to be first at launch."
+      "Aurelle launched on time and placed a reorder."
      ],
      [
       0.15,
       "bad",
-      "A guest posted a blurry photo. PR had to step in."
+      "The first flight left a day late. Aurelle was annoyed but kept the order."
      ]
     ],
     "C": [
      [
       0.75,
       "good",
-      "She loved the Wednesday first look and bought two pieces."
+      "Aurelle accepted the new date and thanked us for being honest."
      ],
      [
       0.25,
       "bad",
-      "She felt brushed off and bought from a rival."
+      "Aurelle moved part of the order to another factory."
      ]
     ],
     "D": [
      [
       0.4,
       "good",
-      "She came to the launch and was happy."
+      "Aurelle accepted the original date."
      ],
      [
       0.6,
       "bad",
-      "She told the CEO she felt ignored."
+      "Aurelle complained to our Plant Director."
      ]
     ]
    }
   },
   {
    "id": "r2",
-   "title": "The Late Shipment",
+   "title": "The Short Supply",
    "real_seconds": 900,
    "game_minutes": 180,
    "clock_start": "09:00",
-   "brief": "Only 600 of 1,000 units of the holiday line arrive on time. Decide how to allocate them to 12 stores and online by 12 noon.",
+   "brief": "Only 600 of 1,000 kg of brass alloy arrived. The rest comes in 3 weeks. Decide how to use the 600 kg by 12 noon.",
    "options": {
     "A": {
-     "label": "Equal split",
-     "text": "Same number to every store and online.",
+     "label": "Equal cut",
+     "text": "Every open order gets 60% of the metal it needs.",
      "base": 2
     },
     "B": {
-     "label": "Follow the sales",
-     "text": "80% to the top 5 stores and online, by last year's holiday sales.",
+     "label": "Due dates first",
+     "text": "450 kg to the two big orders due in 10 days, 150 kg to small orders. Nord waits.",
      "base": 5,
      "tag": "Approximate"
     },
     "C": {
-     "label": "Protect VIPs first",
-     "text": "Hold 150 units for VIP pre-orders at the flagship, the rest by last year's sales.",
+     "label": "Key account first",
+     "text": "Hold 100 kg for Aurelle, our biggest customer. Then use the rest by due date.",
      "base": 4,
      "tag": "Pick"
     },
     "D": {
-     "label": "Delay the launch",
-     "text": "Wait 2 weeks for the full 1,000 units.",
+     "label": "Stop and wait",
+     "text": "Pause production until the full 1,000 kg arrives.",
      "base": 1
     }
    },
    "trap": {
-    "at_real_seconds": 300,
-    "text": "Supplier Velta Gems: we can deliver the missing 400 units in 5 days if you sign a 3-year exclusive contract for all Classic lines. Value: $6.5M. Answer in 2 hours.",
+    "at_real_seconds": 150,
+    "text": "Supplier Kestrel Metals: we can deliver the missing 400 kg in 5 days if you sign a 3-year exclusive contract for all your brass alloy. Value: $6.5M. Answer in 2 hours.",
     "label": "NO WAY BACK",
     "choices": {
      "sign": {
@@ -386,15 +385,15 @@
      "escalate": {},
      "ask_time": {}
     },
-    "authority_card": "Contracts over $1M need the CEO and Legal."
+    "authority_card": "Contracts over $1M need the Regional VP and Legal."
    },
    "critical_facts": [
-    "velocity",
-    "campaign"
+    "orders",
+    "penalty"
    ],
    "stakeholder_keys": [
-    "regional",
-    "store_ops"
+    "plant_dir",
+    "prod_head"
    ],
    "cards": [
     {
@@ -402,7 +401,7 @@
      "role": "ops",
      "kind": "note",
      "cost": 0,
-     "text": "Moving stock between stores later costs $25 per unit and takes 3 days.",
+     "text": "Each product change on a line takes 4 hours of setup.",
      "tier": "key"
     },
     {
@@ -410,7 +409,7 @@
      "role": "ops",
      "kind": "note",
      "cost": 0,
-     "text": "Online orders ship from the central warehouse in 1 day.",
+     "text": "Lines 3 and 4 stand side by side in Building B, 2 minutes apart.",
      "tier": "context"
     },
     {
@@ -418,26 +417,26 @@
      "role": "ops",
      "kind": "report",
      "cost": 15,
-     "text": "Holiday temp staff are hired for the top 5 stores only.",
+     "text": "Metal waste: 2% on long runs, 6% when we switch products often.",
      "tier": "context",
-     "title": "Temp staff plan"
+     "title": "Scrap data"
     },
     {
      "id": "r2-ops-4",
      "role": "ops",
      "kind": "rumor",
      "cost": 15,
-     "text": "The Riverside Mall store expects a big corporate order.",
-     "source": "store chat",
+     "text": "Night shift says they can get more parts from the same kilos.",
      "tier": "rumor",
-     "title": "Store chatter"
+     "title": "Shift chatter",
+     "source": "night shift"
     },
     {
      "id": "r2-merch-1",
      "role": "merch",
      "kind": "note",
      "cost": 0,
-     "text": "600 units arrive today. The other 400 arrive in 4 weeks, after the holidays.",
+     "text": "600 kg arrived today. The other 400 kg arrive in 3 weeks.",
      "tier": "context"
     },
     {
@@ -445,72 +444,82 @@
      "role": "merch",
      "kind": "report",
      "cost": 15,
-     "text": "Last holiday, the top 5 stores and online sold 72% of this line. 4 small stores sold under 20 units each.",
-     "fact": "velocity",
+     "text": "Aurelle and Mira Home: 450 kg, due in 10 days. Nord: 300 kg, due in 4 weeks. Small orders: 250 kg, flexible dates.",
      "tier": "critical",
-     "title": "Last holiday sales"
+     "title": "Order book",
+     "fact": "orders"
     },
     {
      "id": "r2-merch-3",
      "role": "merch",
      "kind": "report",
      "cost": 15,
-     "text": "Unsold holiday stock after Dec 31 goes to 30% off.",
+     "text": "Last year, small-order customers accepted a 2-week delay 9 times out of 10.",
      "tier": "context",
-     "title": "Markdown rule"
+     "title": "Delay history"
     },
     {
      "id": "r2-merch-4",
      "role": "merch",
      "kind": "note",
      "cost": 0,
-     "text": "Flagship VIP waitlist: 40 pre-orders from the Aurora preview.",
+     "text": "After the rush order, Aurelle placed a reorder: 100 kg more, due in 10 days.",
+     "tier": "key",
      "fact": "waitlist",
-     "only_if": "r1_choice_in_BC",
-     "tier": "key"
+     "only_if": "r1_choice_in_BC"
+    },
+    {
+     "id": "r2-merch-5",
+     "role": "merch",
+     "kind": "note",
+     "cost": 0,
+     "text": "After the rush order, Aurelle told our sales team the delivery felt chaotic.",
+     "tier": "key",
+     "only_if": "r1_choice_A"
     },
     {
      "id": "r2-fin-1",
      "role": "finance",
-     "kind": "note",
-     "cost": 0,
-     "text": "Average price: $850 per unit. Margin: 62%.",
-     "tier": "context"
+     "kind": "report",
+     "cost": 15,
+     "text": "Brass alloy price rose 8% this quarter.",
+     "tier": "context",
+     "title": "Price trend"
     },
     {
      "id": "r2-fin-2",
      "role": "finance",
      "kind": "note",
      "cost": 0,
-     "text": "Contract approval: Regional Director up to $500k. Over $1M: CEO and Legal.",
-     "fact": "authority",
-     "tier": "critical"
+     "text": "Contract approval: Plant Director up to $500k. Over $1M: Regional VP and Legal.",
+     "tier": "critical",
+     "fact": "authority"
     },
     {
      "id": "r2-fin-3",
      "role": "finance",
-     "kind": "report",
-     "cost": 15,
-     "text": "Every week of delay in the holiday season loses about $140k in sales.",
-     "tier": "context",
-     "title": "Cost of delay"
+     "kind": "note",
+     "cost": 0,
+     "text": "Late penalties on the two big orders: about $60k per week, from day 1.",
+     "tier": "critical",
+     "fact": "penalty"
     },
     {
      "id": "r2-fin-4",
      "role": "finance",
      "kind": "rumor",
      "cost": 15,
-     "text": "Velta Gems may have money problems next year.",
-     "source": "hallway talk",
+     "text": "Kestrel Metals may have money problems next year.",
      "tier": "rumor",
-     "title": "Supplier gossip"
+     "title": "Supplier gossip",
+     "source": "hallway talk"
     },
     {
      "id": "r2-hr-1",
      "role": "hr",
      "kind": "note",
      "cost": 0,
-     "text": "Store teams are tired after the Aurora launch.",
+     "text": "Line teams are tired after the rush order.",
      "tier": "context"
     },
     {
@@ -518,43 +527,42 @@
      "role": "hr",
      "kind": "note",
      "cost": 0,
-     "text": "Temp staff contracts start in 10 days.",
-     "tier": "context"
+     "text": "Weekend rule: a maintenance tech must reach any running line within 10 minutes.",
+     "tier": "key"
     },
     {
      "id": "r2-hr-3",
      "role": "hr",
      "kind": "report",
      "cost": 15,
-     "text": "Small stores can share 1 advisor between them in December.",
-     "tier": "key",
-     "title": "Advisor sharing"
+     "text": "If a line stops, 30 contract workers get no shift pay.",
+     "tier": "context",
+     "title": "Stop impact"
     },
     {
      "id": "r2-hr-4",
      "role": "hr",
      "kind": "rumor",
      "cost": 15,
-     "text": "Small-store teams will be upset if they get less stock.",
-     "source": "staff chat",
+     "text": "Some team leaders say an equal cut is the only fair way.",
      "tier": "rumor",
-     "title": "Team mood"
+     "title": "Team mood",
+     "source": "canteen talk"
     },
     {
      "id": "r2-mkt-1",
      "role": "marketing",
      "kind": "note",
      "cost": 0,
-     "text": "The holiday campaign is paid and starts in 10 days. Dates cannot move.",
-     "fact": "campaign",
-     "tier": "critical"
+     "text": "Every order must use certified nickel-free alloy. No certificate, no shipment.",
+     "tier": "key"
     },
     {
      "id": "r2-mkt-2",
      "role": "marketing",
      "kind": "note",
      "cost": 0,
-     "text": "The campaign sends customers to online and the top 5 stores.",
+     "text": "Mira Home audits our material certificates every quarter.",
      "tier": "context"
     },
     {
@@ -562,44 +570,35 @@
      "role": "marketing",
      "kind": "report",
      "cost": 15,
-     "text": "Last year, out-of-stock online cost us 2,000 visitors a day.",
-     "tier": "context",
-     "title": "Online stock-outs"
+     "text": "Kestrel's alloy is not yet certified nickel-free. Certification takes 6 weeks.",
+     "tier": "key",
+     "title": "Supplier certification"
     },
     {
      "id": "r2-mkt-4",
      "role": "marketing",
      "kind": "rumor",
      "cost": 15,
-     "text": "An influencer says an equal split looks fairer to customers.",
-     "source": "social media",
+     "text": "One buyer said an equal cut would look fairer to all customers.",
      "tier": "rumor",
-     "title": "Influencer view"
-    },
-    {
-     "id": "r2-merch-5",
-     "role": "merch",
-     "kind": "note",
-     "cost": 0,
-     "tier": "key",
-     "only_if": "r1_choice_A",
-     "text": "After Saturday, Mrs. Arora told two friends the preview felt chaotic."
+     "title": "Buyer's view",
+     "source": "a buyer's email"
     }
    ],
    "stakeholders": [
     {
-     "id": "regional",
-     "name": "Regional Director",
+     "id": "plant_dir",
+     "name": "Plant Director",
      "cost": 15,
      "key": true,
-     "text": "I can approve the allocation. A supplier contract that size is not mine. Take it to the CEO."
+     "text": "I can approve the allocation. A supplier contract that size is not mine. Take it to the Regional VP."
     },
     {
-     "id": "store_ops",
-     "name": "Store operations lead",
+     "id": "prod_head",
+     "name": "Head of Production",
      "cost": 15,
      "key": true,
-     "text": "Small stores barely sell this line in December."
+     "text": "Long runs on the two big orders waste the least metal. Small orders can wait 2 weeks."
     },
     {
      "id": "legal",
@@ -610,27 +609,27 @@
     },
     {
      "id": "supplier",
-     "name": "Velta Gems sales rep",
+     "name": "Kestrel Metals sales rep",
      "cost": 15,
      "key": false,
-     "text": "Other brands want this slot. Decide fast."
+     "text": "Other buyers want this slot. Decide fast."
     },
     {
-     "id": "top_store",
-     "name": "Top store manager",
+     "id": "account",
+     "name": "Aurelle account manager",
      "cost": 15,
      "key": false,
-     "text": "Give my store more. We always sell out."
+     "text": "Aurelle is our biggest customer. Give them everything first."
     }
    ],
    "measures": {
     "right": [
-     "Sell-through by Dec 31",
-     "Online out-of-stock days"
+     "Big orders shipped on time, with certificates",
+     "Late-penalty cost this month"
     ],
     "wrong": [
-     "Number of stores that got stock",
-     "Social media comments"
+     "Number of customers who got some metal",
+     "Machine running hours"
     ]
    },
    "outcomes": {
@@ -638,48 +637,48 @@
      [
       0.3,
       "good",
-      "Sales were fine, but small stores kept stock into January."
+      "Customers were patient this time. Penalties stayed small."
      ],
      [
       0.7,
       "bad",
-      "Top stores sold out in a week. Small stores sat on stock."
+      "Both big orders shipped late. Penalties hit $120k."
      ]
     ],
     "B": [
      [
       0.8,
       "good",
-      "Best holiday sell-through in 3 years."
+      "Both big orders shipped on time. Small customers took the delay well."
      ],
      [
       0.2,
       "bad",
-      "A mall flood closed one top store for a week."
+      "A machine fault cost a day, but penalties stayed small."
      ]
     ],
     "C": [
      [
       0.8,
       "good",
-      "VIPs got their pieces. Sales were strong."
+      "Aurelle got its reorder and praised the factory."
      ],
      [
       0.2,
       "bad",
-      "Some VIPs cancelled. 30 units waited at the flagship."
+      "Mira Home shipped 3 days late and complained."
      ]
     ],
     "D": [
      [
       0.1,
       "good",
-      "The full line launched late but sold well."
+      "The rest of the metal came early and orders caught up."
      ],
      [
       0.9,
       "bad",
-      "The paid campaign ran with empty shelves."
+      "The lines sat idle and every order shipped late."
      ]
     ]
    },
@@ -696,12 +695,13 @@
     "base_otherwise": {
      "B": 5,
      "C": 3
-    }
+    },
+    "client_note": "Aurelle reorder (B, C) or Aurelle complaint (A)"
    },
    "small_call": {
     "at_real_seconds": 480,
-    "from": "Store operations lead",
-    "text": "Can two small stores share one advisor in December? I need a yes or no today.",
+    "from": "Weekend shift lead",
+    "text": "Can Lines 3 and 4 share one maintenance tech this weekend? I need a yes or no today.",
     "within_authority": true,
     "choices": {
      "approve": {
@@ -713,7 +713,7 @@
      "escalate": {
       "cost": 15,
       "t_delta": -1,
-      "reply": "Regional Director: That's your call. You don't need me for this."
+      "reply": "Plant Director: That's your call. You don't need me for this."
      }
     }
    }
